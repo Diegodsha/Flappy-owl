@@ -82,7 +82,7 @@ export default class PreloaderScene extends Phaser.Scene {
   this.load.image('checkedBox', '/src/assets/ui/blue_boxCheckmark.png');
   this.load.image('box', '/src/assets/ui/grey_box.png');
   this.load.image('game-over', '/src/assets/gameover/textGameOver.png')
-  this.load.image('restart', '/src/assets/ui/restart-button.png')
+  this.load.image('restart-btn', '/src/assets/ui/restart-button.png')
 
   //backgrounḍ and ground
   this.load.image('back-sky', '/src/assets/backgrounds/background-day.png');
