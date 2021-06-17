@@ -87,15 +87,15 @@ export default class PreloaderScene extends Phaser.Scene {
   //backgrounḍ and ground
   this.load.image('back-sky', '/src/assets/backgrounds/background-day.png');
   this.load.spritesheet('ground', '/src/assets/platforms/ground-sprite.png', {
-    frameWidth: 20,
-    frameHeight: 20,
+    frameWidth: 800,
+    frameHeight: 112,
   });
 
 //music & sounds
   this.load.audio('bgMusic', ['/src/assets/TownTheme.mp3']);
 
 //bird
-  this.load.spritesheet('bird', '/src/assets/hero/bird-red-spriet.png', {
+  this.load.spritesheet('bird', '/src/assets/hero/bird-red-sprite.png', {
     frameWidth: 34,
     frameHeight: 24,
   });
