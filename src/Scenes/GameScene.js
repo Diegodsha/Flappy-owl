@@ -172,6 +172,50 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 20,
     });
 
+    //blue Bird Animations
+    this.anims.create({
+      key: assets.animation.bird.blue.clapWings,
+      frames: this.anims.generateFrameNumbers(assets.bird.blue, {
+        start: 0,
+        end: 2,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: assets.animation.bird.blue.stop,
+      frames: [
+        {
+          key: assets.bird.blue,
+          frame: 1,
+        },
+      ],
+      frameRate: 20,
+    });
+
+    //yellow Bird Animations
+    this.anims.create({
+      key: assets.animation.bird.yellow.clapWings,
+      frames: this.anims.generateFrameNumbers(assets.bird.yellow, {
+        start: 0,
+        end: 2,
+      }),
+      frameRate: 10,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: assets.animation.bird.yellow.stop,
+      frames: [
+        {
+          key: assets.bird.yellow,
+          frame: 1,
+        },
+      ],
+      frameRate: 20,
+    });
+
     //prepareGame(this)-----------------------
 
     this.gameOverBanner = this.add.image(400, 100, 'game-over');
