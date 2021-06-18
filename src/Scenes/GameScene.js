@@ -216,7 +216,7 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 20,
     });
 
-    //prepareGame(this)-----------------------
+    this.prepareGame(this)
 
     this.gameOverBanner = this.add.image(400, 100, 'game-over');
     this.gameOverBanner.setDepth(20);
@@ -229,12 +229,46 @@ export default class GameScene extends Phaser.Scene {
     //move bird with click- or spacebar
     // this.input.on('pointerdown', this.jump, this);
     // this.input.keyboard.on('keydown-SPACE', this.jump, this);
+    this.spaceBar =this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
   }
 
   update() {
+    if (this.gameOver || !this.gameStarted)
+        return
+
+    if (this.framesMoveUp > 0)
+        this.framesMoveUp--
+    else if (Phaser.Input.Keyboard.JustDown(this.spaceBar))
+        this.fly()
+    else {
+        // this.bird.setVelocityY(120)
+
+        if (this.bird.angle < 90)
+        this.bird.angle += 1
+    }
+
+    this.pipesGroup.children.iterate(function (child) {
+        if (child == undefined)
+            return
+
+        if (child.x < -50)
+            child.destroy()
+        else
+            child.setVelocityX(-100)
+    })
+
+    this.gapsGroup.children.iterate(function (child) {
+        child.body.setVelocityX(-100)
+    })
+
+    this.nextPipes++
+    if (this.nextPipes === 130) {
+        this.makePipes(this)
+        this.nextPipes = 0
+    }
     // If the bird is out of the screen (too high or too low)
     // Call the 'restartGame' function
-    if (this.bird.y < 10 || this.bird.y > 580) this.restartGame();
+    // if (this.bird.y < 10 || this.bird.y > 580) this.restartGame();
   }
 
   jump() {
@@ -256,6 +290,30 @@ export default class GameScene extends Phaser.Scene {
   restartGame() {
     this.scene.start('Game');
   }
+
+  prepareGame(scene) {
+    this.framesMoveUp = 0
+    this.nextPipes = 0
+    this.currentPipe = assets.obstacle.pipe.green
+    this.score = 0
+    this.gameOver = false
+    this.bgDay.visible = true
+    this.bgNight.visible = false
+    this.messageInitial.visible = true
+
+    this.birdName = this.getRandomBird()
+    this.bird = scene.physics.add.sprite(60, 265, this.birdName)
+    this.bird.setCollideWorldBounds(true)
+    this.bird.anims.play(this.getAnimationBird(this.birdName).clapWings, true)
+    this.bird.body.allowGravity = false
+
+    // this.physics.add.collider(this.bird, this.ground, this.hitBird, null, scene)
+    // this.physics.add.collider(this.bird, this.pipesGroup, this.hitBird, null, scene)
+
+    // this.physics.add.overlap(this.bird, this.gapsGroup, this.updateScore, null, scene)
+
+    this.ground.anims.play(assets.animation.ground.moving, true)
+}
 
   getRandomBird() {
     switch (Phaser.Math.Between(0, 2)) {
@@ -286,44 +344,20 @@ export default class GameScene extends Phaser.Scene {
 
     const pipeTopY = Phaser.Math.Between(-120, 120);
 
-    const gap = scene.add.line(288, pipeTopY + 210, 0, 0, 0, 98);
+    const gap = scene.add.line(config.width + 20, pipeTopY + 210, 0, 0, 0, 98);
     this.gapsGroup.add(gap);
     gap.body.allowGravity = false;
     gap.visible = false;
 
-    const pipeTop = this.pipesGroup.create(288, pipeTopY, this.currentPipe.top);
+    const pipeTop = this.pipesGroup.create(config.width + 20, pipeTopY + 20, this.currentPipe.top);
     pipeTop.body.allowGravity = false;
 
     const pipeBottom = this.pipesGroup.create(
-      288,
-      pipeTopY + 420,
+      config.width + 20,
+      pipeTopY + 440,
       this.currentPipe.bottom
     );
     pipeBottom.body.allowGravity = false;
-  }
-
-  prepareGame(scene) {
-    framesMoveUp = 0;
-    nextPipes = 0;
-    currentPipe = assets.obstacle.pipe.green;
-    score = 0;
-    gameOver = false;
-    backgroundDay.visible = true;
-    backgroundNight.visible = false;
-    messageInitial.visible = true;
-
-    birdName = getRandomBird();
-    player = scene.physics.add.sprite(60, 265, birdName);
-    player.setCollideWorldBounds(true);
-    player.anims.play(getAnimationBird(birdName).clapWings, true);
-    player.body.allowGravity = false;
-
-    scene.physics.add.collider(player, ground, hitBird, null, scene);
-    scene.physics.add.collider(player, pipesGroup, hitBird, null, scene);
-
-    scene.physics.add.overlap(player, gapsGroup, updateScore, null, scene);
-
-    ground.anims.play(assets.animation.ground.moving, true);
   }
 
   startGame(scene) {
