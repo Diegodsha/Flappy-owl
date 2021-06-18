@@ -80,6 +80,7 @@ export default class GameScene extends Phaser.Scene {
     this.nextPipes;
     this.gapGroup;
     this.birdName;
+    this.bird
 
     //add background
     this.bgDay = this.add
@@ -116,8 +117,8 @@ export default class GameScene extends Phaser.Scene {
     this.ground.setDepth(10);
 
     //add bird
-    this.bird = this.physics.add.sprite(100, 250, assets.bird.red);
-    this.bird.body.gravity.y = 1000;
+    // this.bird = this.physics.add.sprite(100, 250, assets.bird.red);
+    // this.bird.body.gravity.y = 1000;
 
     //initial
     this.messageInitial = this.add.image(
@@ -242,10 +243,12 @@ export default class GameScene extends Phaser.Scene {
         this.fly()
     else {
         // this.bird.setVelocityY(120)
-
+        this.bird.body.allowGravity = true
+        this.bird.body.gravity.y = 1000;
         if (this.bird.angle < 90)
         this.bird.angle += 1
     }
+
 
     this.pipesGroup.children.iterate(function (child) {
         if (child == undefined)
@@ -302,7 +305,7 @@ export default class GameScene extends Phaser.Scene {
     this.messageInitial.visible = true
 
     this.birdName = this.getRandomBird()
-    this.bird = scene.physics.add.sprite(60, 265, this.birdName)
+    this.bird = this.physics.add.sprite(60, 265, this.birdName)
     this.bird.setCollideWorldBounds(true)
     this.bird.anims.play(this.getAnimationBird(this.birdName).clapWings, true)
     this.bird.body.allowGravity = false
@@ -310,9 +313,42 @@ export default class GameScene extends Phaser.Scene {
     // this.physics.add.collider(this.bird, this.ground, this.hitBird, null, scene)
     // this.physics.add.collider(this.bird, this.pipesGroup, this.hitBird, null, scene)
 
-    // this.physics.add.overlap(this.bird, this.gapsGroup, this.updateScore, null, scene)
+    this.physics.add.overlap(this.bird, this.gapsGroup, this.updateScore, null, scene)
 
     this.ground.anims.play(assets.animation.ground.moving, true)
+}
+
+updateScore(_, gap) {
+  this.score++
+  gap.destroy()
+
+  if (this.score % 10 == 0) {
+      this.bgDay.visible = !this.bgDay.visible
+      this.bgNight.visible = !this.bgNight.visible
+
+      if (this.currentPipe === assets.obstacle.pipe.green)
+          this.currentPipe = assets.obstacle.pipe.red
+      else
+          this.currentPipe = assets.obstacle.pipe.green
+  }
+
+  this.updateScoreboard()
+}
+
+updateScoreboard() {
+  this.scoreboardGroup.clear(true, true)
+
+  const scoreAsString = this.score.toString()
+  if (scoreAsString.length == 1)
+      this.scoreboardGroup.create(config.width / 2, 30, assets.scoreboard.base + this.score).setDepth(10)
+  else {
+      let initialPosition = config.width / 2 - ((this.score.toString().length * assets.scoreboard.width) / 2)
+
+      for (let i = 0; i < scoreAsString.length; i++) {
+          this.scoreboardGroup.create(initialPosition, 30, assets.scoreboard.base + scoreAsString[i]).setDepth(10)
+          initialPosition += assets.scoreboard.width
+      }
+  }
 }
 
   getRandomBird() {
