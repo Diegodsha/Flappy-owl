@@ -8,10 +8,9 @@ export default class OptionsScene extends Phaser.Scene {
 
  
   create () {
-    let bg = this.add.image(0,0,'background-day')
+    let bg = this.add.image(0,0,'background-night')
     bg.displayHeight= game.config.height
     bg.displayWidth= game.config.width
-    // bg.scaleX = bg.scaleY
     bg.y=game.config.height/2
     bg.x=game.config.width/2
    	

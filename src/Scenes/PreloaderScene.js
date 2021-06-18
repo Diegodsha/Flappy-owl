@@ -7,13 +7,19 @@ export default class PreloaderScene extends Phaser.Scene {
  
   preload () {
     // add logo image
-  this.add.image(640, 150, 'logo');
+  this.logo = this.add.image(400, 150, 'bird');
+  this.logo.displayWidth = game.config.width / 5;
+this.logo.displayHeight = game.config.height / 8;
+
+this.logo = this.add.image(400, 450, 'logo');
+this.logo.displayWidth = game.config.width / 5;
+this.logo.displayHeight = game.config.height / 8;
  
   // display progress bar
   const progressBar = this.add.graphics();
   const progressBox = this.add.graphics();
   progressBox.fillStyle(0x222222, 0.8);
-  progressBox.fillRect(500, 270, 320, 50);
+  progressBox.fillRect(230, 270, 320, 50);
  
   const width = this.cameras.main.width;
   const height = this.cameras.main.height;
@@ -55,7 +61,7 @@ export default class PreloaderScene extends Phaser.Scene {
     percentText.setText(parseInt(value * 100) + '%');
     progressBar.clear();
     progressBar.fillStyle(0xffffff, 1);
-    progressBar.fillRect(510, 280, 300 * value, 30);
+    progressBar.fillRect(240, 280, 300 * value, 30);
   });
  
   // update file progress text
@@ -83,9 +89,11 @@ export default class PreloaderScene extends Phaser.Scene {
   this.load.image('box', '/src/assets/ui/grey_box.png');
   this.load.image('game-over', '/src/assets/gameover/textGameOver.png')
   this.load.image('restart-btn', '/src/assets/ui/restart-button.png')
+  this.load.image('logo', '/src/assets/dshagui-logo.png')
 
   //backgrounḍ and ground
   this.load.image('background-day', '/src/assets/backgrounds/background-day.png');
+  this.load.image('background-night', '/src/assets/backgrounds/background-night.png');
   this.load.spritesheet('ground', '/src/assets/platforms/ground-sprite.png', {
     frameWidth: 800,
     frameHeight: 112,

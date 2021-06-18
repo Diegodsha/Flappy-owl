@@ -6,6 +6,7 @@ export default class BootScene extends Phaser.Scene{
     }
 
     preload(){
+        this.load.image('bird', '/src/assets/ui/favicon.png')
         this.load.image('logo', '/src/assets/dshagui-logo.png')
     }
 
