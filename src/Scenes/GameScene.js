@@ -1,5 +1,6 @@
 import 'phaser';
-// import config from '../Config/config';
+import config from '../Config/config';
+
 const assets = {
     bird: {
         red: 'bird-red',
@@ -72,6 +73,15 @@ export default class GameScene extends Phaser.Scene {
   }
   
   create() {
+    this.framesMoveUp
+    this.gameOver
+    this.gameStarted
+    this.score
+    this.currentPipe
+    this.nextPipes
+    this.gapGroup
+    this.birdName
+
     
     //add background
     this.bgDay = this.add.image(0, 0, assets.scene.background.day).setInteractive();
@@ -79,7 +89,7 @@ export default class GameScene extends Phaser.Scene {
     this.bgDay.displayWidth = game.config.width;
     this.bgDay.y = game.config.height / 2;
     this.bgDay.x = game.config.width / 2;
-    // this.bgDay.on('pointerdown', moveBird)
+    this.bgDay.on('pointerdown', this.fly, this)
 
     this.bgNight = this.add.image(0, 0, assets.scene.background.night).setInteractive();
     this.bgNight.displayHeight = game.config.height;
@@ -90,9 +100,9 @@ export default class GameScene extends Phaser.Scene {
     // this.bgDay.on('pointerdown', moveBird)
 
     //add game utilities
-    this.gapGroup = this.physics.add.group();
-    this.pipeGroup = this.physics.add.group();
-    this.scoreBoard = this.physics.add.staticGroup();
+    this.gapsGroup = this.physics.add.group();
+    this.pipesGroup = this.physics.add.group();
+    this.scoreboardGroup = this.physics.add.staticGroup();
 
     //add ground
     this.ground = this.physics.add.sprite(assets.scene.width, 600, assets.scene.ground);
@@ -103,42 +113,49 @@ export default class GameScene extends Phaser.Scene {
     this.bird = this.physics.add.sprite(100, 250, assets.bird.red);
     this.bird.body.gravity.y = 1000;
 
+    //initial
+    this.messageInitial = this.add.image(assets.scene.width, 156, assets.scene.messageInitial)
+    this.messageInitial.setDepth(30)
+    this.messageInitial.visible = false
+
     // Ground animations
     this.anims.create({
-      key: 'ground-moves',
-      frames: this.anims.generateFrameNumbers('ground', {
+      key: assets.animation.ground.moving,
+      frames: this.anims.generateFrameNumbers(assets.scene.ground, {
         start: 0,
-        end: 2,
+        end: 2
       }),
       frameRate: 15,
       repeat: -1,
     });
+
     this.anims.create({
-      key: 'ground-stop',
+      key: assets.animation.ground.stop,
       frames: [
         {
-          key: 'ground',
+          key: assets.scene.ground,
           frame: 0,
         },
       ],
       frameRate: 20,
     });
 
-    //Bird Animations
+    //Red Bird Animations
     this.anims.create({
-      key: 'fly',
-      frames: this.anims.generateFrameNumbers('bird', {
+      key: assets.animation.bird.red.clapWings,
+      frames: this.anims.generateFrameNumbers(assets.bird.red, {
         start: 0,
         end: 2,
       }),
       frameRate: 10,
       repeat: -1,
     });
+
     this.anims.create({
-      key: 'stop',
+      key: assets.animation.bird.red.stop,
       frames: [
         {
-          key: 'bird-stop',
+          key: assets.bird.red,
           frame: 1,
         },
       ],
@@ -151,13 +168,13 @@ export default class GameScene extends Phaser.Scene {
     this.gameOverBanner.setDepth(20)
     this.gameOverBanner.visible = false
 
-    this.restartBtn = this.add.image(400,300,'restart-btn')
-    this.restartBtn.setDepth(20)
-    this.restartBtn.visible = false
+    this.restartButton = this.add.image(400,300,'restart-btn')
+    this.restartButton.setDepth(20)
+    this.restartButton.visible = false
 
     //move bird with click- or spacebar
-    this.input.on('pointerdown', this.jump, this);
-    this.input.keyboard.on('keydown-SPACE', this.jump, this);
+    // this.input.on('pointerdown', this.jump, this);
+    // this.input.keyboard.on('keydown-SPACE', this.jump, this);
   }
 
   update() {
@@ -171,9 +188,40 @@ export default class GameScene extends Phaser.Scene {
     // Add a vertical velocity to the bird
     this.bird.body.velocity.y = -350;
   }
+
+  fly() {
+    if (this.gameOver)
+        return
+
+    if (!this.gameStarted)
+        this.startGame('Game')
+
+    this.bird.setVelocityY(-350)
+    // this.bird.body.velocity.y = -350;
+    this.bird.angle = -15
+    this.framesMoveUp = 5
+}
+
   restartGame() {
     this.scene.start('Game');
   }
+
+  makePipes(scene) {
+    if (!this.gameStarted || this.gameOver) return
+
+    const pipeTopY = Phaser.Math.Between(-120, 120)
+
+    const gap = scene.add.line(288, pipeTopY + 210, 0, 0, 0, 98)
+    gapsGroup.add(gap)
+    gap.body.allowGravity = false
+    gap.visible = false
+
+    const pipeTop = pipesGroup.create(288, pipeTopY, currentPipe.top)
+    pipeTop.body.allowGravity = false
+
+    const pipeBottom = pipesGroup.create(288, pipeTopY + 420, currentPipe.bottom)
+    pipeBottom.body.allowGravity = false
+}
 
   prepareGame(scene) {
     framesMoveUp = 0
@@ -198,4 +246,15 @@ export default class GameScene extends Phaser.Scene {
 
     ground.anims.play(assets.animation.ground.moving, true)
 }
+
+startGame(scene) {
+  this.gameStarted = true
+  this.messageInitial.visible = false
+
+  const score0 = this.scoreboardGroup.create(config.width/2, 30, assets.scoreboard.number0)
+  score0.setDepth(20)
+
+  // makePipes(scene)
+}
+
 }
