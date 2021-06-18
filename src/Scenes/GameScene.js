@@ -65,6 +65,7 @@ const assets = {
     }
 }
 
+
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game');
@@ -72,7 +73,6 @@ export default class GameScene extends Phaser.Scene {
   
   create() {
     
-    // this.add.image(400,300,'back-sky')
     //add background
     this.bgDay = this.add.image(0, 0, assets.scene.background.day).setInteractive();
     this.bgDay.displayHeight = game.config.height;
@@ -81,9 +81,13 @@ export default class GameScene extends Phaser.Scene {
     this.bgDay.x = game.config.width / 2;
     // this.bgDay.on('pointerdown', moveBird)
 
-    // backgroundNight = this.add.image(assets.scene.width, 256, assets.scene.background.night).setInteractive()
-    // backgroundNight.visible = false
-    // backgroundNight.on('pointerdown', moveBird)
+    this.bgNight = this.add.image(0, 0, assets.scene.background.night).setInteractive();
+    this.bgNight.displayHeight = game.config.height;
+    this.bgNight.displayWidth = game.config.width;
+    this.bgNight.y = game.config.height / 2;
+    this.bgNight.x = game.config.width / 2;
+    this.bgNight.visible = false
+    // this.bgDay.on('pointerdown', moveBird)
 
     //add game utilities
     this.gapGroup = this.physics.add.group();

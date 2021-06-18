@@ -87,8 +87,10 @@ this.logo.displayHeight = game.config.height / 8;
   this.load.image('blueButton2', '/src/assets/ui/blue_button03.png');
   this.load.image('checkedBox', '/src/assets/ui/blue_boxCheckmark.png');
   this.load.image('box', '/src/assets/ui/grey_box.png');
-  this.load.image('game-over', '/src/assets/gameover/textGameOver.png')
-  this.load.image('restart-btn', '/src/assets/ui/restart-button.png')
+  this.load.image('gameover', '/src/assets/gameover/textGameOver.png')
+  this.load.image('restart-button', '/src/assets/ui/restart-button.png')
+  this.load.image('logo', '/src/assets/dshagui-logo.png')
+  this.load.image('message-initial', '/src/assets/ui/message-initial.png')
   this.load.image('logo', '/src/assets/dshagui-logo.png')
 
   //backgrounḍ and ground
@@ -107,17 +109,39 @@ this.logo.displayHeight = game.config.height / 8;
     frameWidth: 34,
     frameHeight: 24,
   });
+  this.load.spritesheet('bird-yellow', '/src/assets/hero/bird-yellow-sprite.png', {
+    frameWidth: 34,
+    frameHeight: 24,
+  });
+  this.load.spritesheet('bird-blue', '/src/assets/hero/bird-blue-sprite.png', {
+    frameWidth: 34,
+    frameHeight: 24,
+  });
 
   // pipes and coins
-  this.load.image('pipe-up', '/src/assets/platforms/pipe-green-top.png');
-  this.load.image('pipe-down', '/src/assets/platforms/pipe-green-bottom.png');
+  this.load.image('pipe-green-top', '/src/assets/platforms/pipe-green-top.png');
+  this.load.image('pipe-green-bottom', '/src/assets/platforms/pipe-green-bottom.png');
+  this.load.image('pipe-red-top', '/src/assets/platforms/pipe-red-top.png');
+  this.load.image('pipe-red-bottom', '/src/assets/platforms/pipe-red-bottom.png');
 
   this.load.spritesheet('coin', '/src/assets/coins/coin_gold.png', {
     frameWidth: 20,
     frameHeight: 20,
   });
+  
+  //numbers
+  this.load.image('number0', '/src/assets/ui/number0.png')
+  this.load.image('number1', '/src/assets/ui/number1.png')
+  this.load.image('number2', '/src/assets/ui/number2.png')
+  this.load.image('number3', '/src/assets/ui/number3.png')
+  this.load.image('number4', '/src/assets/ui/number4.png')
+  this.load.image('number5', '/src/assets/ui/number5.png')
+  this.load.image('number6', '/src/assets/ui/number6.png')
+  this.load.image('number7', '/src/assets/ui/number7.png')
+  this.load.image('number8', '/src/assets/ui/number8.png')
+  this.load.image('number9', '/src/assets/ui/number9.png')
 
- 
+
 
 }
 
