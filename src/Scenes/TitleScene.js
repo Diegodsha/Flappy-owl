@@ -9,7 +9,7 @@ export default class TitleScene extends Phaser.Scene {
 
   create() {
     // this.add.image(400, 300, 'back');
-    let bg = this.add.image(0,0,'back-sky')
+    let bg = this.add.image(0,0,'background-day')
     bg.displayHeight= game.config.height
     bg.displayWidth= game.config.width
     // bg.scaleX = bg.scaleY

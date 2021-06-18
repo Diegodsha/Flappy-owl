@@ -85,7 +85,7 @@ export default class PreloaderScene extends Phaser.Scene {
   this.load.image('restart-btn', '/src/assets/ui/restart-button.png')
 
   //backgrounḍ and ground
-  this.load.image('back-sky', '/src/assets/backgrounds/background-day.png');
+  this.load.image('background-day', '/src/assets/backgrounds/background-day.png');
   this.load.spritesheet('ground', '/src/assets/platforms/ground-sprite.png', {
     frameWidth: 800,
     frameHeight: 112,
@@ -95,7 +95,7 @@ export default class PreloaderScene extends Phaser.Scene {
   this.load.audio('bgMusic', ['/src/assets/TownTheme.mp3']);
 
 //bird
-  this.load.spritesheet('bird', '/src/assets/hero/bird-red-sprite.png', {
+  this.load.spritesheet('bird-red', '/src/assets/hero/bird-red-sprite.png', {
     frameWidth: 34,
     frameHeight: 24,
   });
