@@ -8,8 +8,8 @@ export default class PreloaderScene extends Phaser.Scene {
   preload () {
     // add logo image
   this.logo = this.add.image(400, 150, 'bird');
-  this.logo.displayWidth = game.config.width / 5;
-this.logo.displayHeight = game.config.height / 8;
+  this.logo.displayWidth = game.config.width / 6;
+this.logo.displayHeight = game.config.height / 7;
 
 this.logo = this.add.image(400, 450, 'logo');
 this.logo.displayWidth = game.config.width / 5;
