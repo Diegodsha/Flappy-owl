@@ -140,12 +140,12 @@ export default class GameScene extends Phaser.Scene {
     this.gameOverBanner.setDepth(20);
     this.gameOverBanner.visible = false;
 
-    this.restartButton = this.add
-      .image(config.width/2, 300, assets.scene.restart)
-      .setInteractive();
-    this.restartButton.on('pointerdown', this.restartGame);
-    this.restartButton.setDepth(20);
-    this.restartButton.visible = false;
+    // this.restartButton = this.add
+    //   .image(config.width/2, 300, assets.scene.restart)
+    //   .setInteractive();
+    // this.restartButton.on('pointerdown', this.restartGame);
+    // this.restartButton.setDepth(20);
+    // this.restartButton.visible = false;
 
     // Ground animations
     this.anims.create({
@@ -242,7 +242,7 @@ export default class GameScene extends Phaser.Scene {
     this.gameOverBanner.visible = false;
 
     this.restartButton = this.add.image(400, 300, assets.scene.restart).setInteractive();
-    this.restartButton.on('pointerdown', this.restartGame)
+    this.restartButton.on('pointerdown', this.restartGame, this)
     this.restartButton.setDepth(20);
     this.restartButton.visible = false;
 
@@ -319,6 +319,19 @@ export default class GameScene extends Phaser.Scene {
   // restartGame() {
   //   this.scene.start('Game');
   // }
+  restartGame() {
+    this.pipesGroup.clear(true, true);
+    this.pipesGroup.clear(true, true);
+    this.gapsGroup.clear(true, true);
+    this.scoreboardGroup.clear(true, true);
+    this.bird.destroy();
+    this.gameOverBanner.visible = false;
+    this.restartButton.visible = false;
+
+    const gameScene = this;
+    this.prepareGame(this);
+    this.physics.resume();
+  }
 
   prepareGame(scene) {
     this.framesMoveUp = 0;
@@ -467,18 +480,5 @@ export default class GameScene extends Phaser.Scene {
     this.makePipes(scene);
   }
 
-  restartGame() {
-    // this.pipesGroup.clear(true, true);
-    // this.pipesGroup.clear(true, true);
-    this.gapsGroup.clear(true, true);
-    this.scoreboardGroup.clear(true, true);
-    this.bird.destroy();
-    this.gameOverBanner.visible = false;
-    this.restartButton.visible = false;
-
-    const gameScene = this;
-    this.prepareGame(gameScene);
-
-    gameScene.physics.resume();
-  }
+ 
 }
