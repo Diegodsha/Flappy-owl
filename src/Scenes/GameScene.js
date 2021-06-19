@@ -80,7 +80,8 @@ export default class GameScene extends Phaser.Scene {
     this.nextPipes;
     this.gapGroup;
     this.birdName;
-    this.bird
+    this.bird;
+    this.pipesGroup
 
     //add background
     this.bgDay = this.add
@@ -128,6 +129,23 @@ export default class GameScene extends Phaser.Scene {
     );
     this.messageInitial.setDepth(30);
     this.messageInitial.visible = false;
+
+    //end
+
+    this.gameOverBanner = this.add.image(
+      config.width / 2,
+      206,
+      assets.scene.gameOver
+    );
+    this.gameOverBanner.setDepth(20);
+    this.gameOverBanner.visible = false;
+
+    this.restartButton = this.add
+      .image(config.width/2, 300, assets.scene.restart)
+      .setInteractive();
+    this.restartButton.on('pointerdown', this.restartGame);
+    this.restartButton.setDepth(20);
+    this.restartButton.visible = false;
 
     // Ground animations
     this.anims.create({
@@ -217,67 +235,62 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 20,
     });
 
-    this.prepareGame(this)
+    this.prepareGame(this);
 
-    this.gameOverBanner = this.add.image(400, 100, 'game-over');
+    this.gameOverBanner = this.add.image(400, 100, assets.scene.gameOver);
     this.gameOverBanner.setDepth(20);
     this.gameOverBanner.visible = false;
 
-    this.restartButton = this.add.image(400, 300, 'restart-btn');
+    this.restartButton = this.add.image(400, 300, assets.scene.restart).setInteractive();
+    this.restartButton.on('pointerdown', this.restartGame)
     this.restartButton.setDepth(20);
     this.restartButton.visible = false;
 
     //move bird with click- or spacebar
     // this.input.on('pointerdown', this.jump, this);
     // this.input.keyboard.on('keydown-SPACE', this.jump, this);
-    this.spaceBar =this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.spaceBar = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.SPACE
+    );
   }
 
   update() {
-    if (this.gameOver || !this.gameStarted)
-        return
+    if (this.gameOver || !this.gameStarted) return;
 
-    if (this.framesMoveUp > 0)
-        this.framesMoveUp--
-    else if (Phaser.Input.Keyboard.JustDown(this.spaceBar))
-        this.fly()
+    if (this.framesMoveUp > 0) this.framesMoveUp--;
+    else if (Phaser.Input.Keyboard.JustDown(this.spaceBar)) this.fly();
     else {
-        // this.bird.setVelocityY(120)
-        this.bird.body.allowGravity = true
-        this.bird.body.gravity.y = 1000;
-        if (this.bird.angle < 90)
-        this.bird.angle += 1
+      // this.bird.setVelocityY(120)
+      this.bird.body.allowGravity = true;
+      this.bird.body.gravity.y = 1000;
+      if (this.bird.angle < 90) this.bird.angle += 1;
     }
 
-
     this.pipesGroup.children.iterate(function (child) {
-        if (child == undefined)
-            return
+      if (child == undefined) return;
 
-        if (child.x < -50)
-            child.destroy()
-        else
-            child.setVelocityX(-100)
-    })
+      if (child.x < -50) child.destroy();
+      else child.setVelocityX(-100);
+    });
 
     this.gapsGroup.children.iterate(function (child) {
-        child.body.setVelocityX(-100)
-    })
+      child.body.setVelocityX(-100);
+    });
 
-    this.nextPipes++
+    this.nextPipes++;
     if (this.nextPipes === 130) {
-        this.makePipes(this)
-        this.nextPipes = 0
+      this.makePipes(this);
+      this.nextPipes = 0;
     }
     // If the bird is out of the screen (too high or too low)
     // Call the 'restartGame' function
     // if (this.bird.y < 10 || this.bird.y > 580) this.restartGame();
   }
 
-  jump() {
-    // Add a vertical velocity to the bird
-    this.bird.body.velocity.y = -350;
-  }
+  // jump() {
+  //   // Add a vertical velocity to the bird
+  //   this.bird.body.velocity.y = -350;
+  // }
 
   fly() {
     if (this.gameOver) return;
@@ -290,66 +303,106 @@ export default class GameScene extends Phaser.Scene {
     this.framesMoveUp = 5;
   }
 
-  restartGame() {
-    this.scene.start('Game');
+  hitBird(player) {
+    this.physics.pause();
+
+    this.gameOver = true;
+    this.gameStarted = false;
+
+    this.bird.anims.play(this.getAnimationBird(this.birdName).stop);
+    this.ground.anims.play(assets.animation.ground.stop);
+
+    this.gameOverBanner.visible = true;
+    this.restartButton.visible = true;
   }
+
+  // restartGame() {
+  //   this.scene.start('Game');
+  // }
 
   prepareGame(scene) {
-    this.framesMoveUp = 0
-    this.nextPipes = 0
-    this.currentPipe = assets.obstacle.pipe.green
-    this.score = 0
-    this.gameOver = false
-    this.bgDay.visible = true
-    this.bgNight.visible = false
-    this.messageInitial.visible = true
+    this.framesMoveUp = 0;
+    this.nextPipes = 0;
+    this.currentPipe = assets.obstacle.pipe.green;
+    this.score = 0;
+    this.gameOver = false;
+    this.bgDay.visible = true;
+    this.bgNight.visible = false;
+    this.messageInitial.visible = true;
 
-    this.birdName = this.getRandomBird()
-    this.bird = this.physics.add.sprite(60, 265, this.birdName)
-    this.bird.setCollideWorldBounds(true)
-    this.bird.anims.play(this.getAnimationBird(this.birdName).clapWings, true)
-    this.bird.body.allowGravity = false
+    this.birdName = this.getRandomBird();
+    this.bird = this.physics.add.sprite(60, 265, this.birdName);
+    this.bird.setCollideWorldBounds(true);
+    this.bird.anims.play(this.getAnimationBird(this.birdName).clapWings, true);
+    this.bird.body.allowGravity = false;
 
-    // this.physics.add.collider(this.bird, this.ground, this.hitBird, null, scene)
-    // this.physics.add.collider(this.bird, this.pipesGroup, this.hitBird, null, scene)
+    this.physics.add.collider(
+      this.bird,
+      this.ground,
+      this.hitBird,
+      null,
+      scene
+    );
+    this.physics.add.collider(
+      this.bird,
+      this.pipesGroup,
+      this.hitBird,
+      null,
+      scene
+    );
 
-    this.physics.add.overlap(this.bird, this.gapsGroup, this.updateScore, null, scene)
+    this.physics.add.overlap(
+      this.bird,
+      this.gapsGroup,
+      this.updateScore,
+      null,
+      scene
+    );
 
-    this.ground.anims.play(assets.animation.ground.moving, true)
-}
+    this.ground.anims.play(assets.animation.ground.moving, true);
+  }
 
-updateScore(_, gap) {
-  this.score++
-  gap.destroy()
+  updateScore(_, gap) {
+    this.score++;
+    gap.destroy();
 
-  if (this.score % 10 == 0) {
-      this.bgDay.visible = !this.bgDay.visible
-      this.bgNight.visible = !this.bgNight.visible
+    if (this.score % 10 == 0) {
+      this.bgDay.visible = !this.bgDay.visible;
+      this.bgNight.visible = !this.bgNight.visible;
 
       if (this.currentPipe === assets.obstacle.pipe.green)
-          this.currentPipe = assets.obstacle.pipe.red
-      else
-          this.currentPipe = assets.obstacle.pipe.green
+        this.currentPipe = assets.obstacle.pipe.red;
+      else this.currentPipe = assets.obstacle.pipe.green;
+    }
+
+    this.updateScoreboard();
   }
 
-  this.updateScoreboard()
-}
+  updateScoreboard() {
+    this.scoreboardGroup.clear(true, true);
 
-updateScoreboard() {
-  this.scoreboardGroup.clear(true, true)
-
-  const scoreAsString = this.score.toString()
-  if (scoreAsString.length == 1)
-      this.scoreboardGroup.create(config.width / 2, 30, assets.scoreboard.base + this.score).setDepth(10)
-  else {
-      let initialPosition = config.width / 2 - ((this.score.toString().length * assets.scoreboard.width) / 2)
+    const scoreAsString = this.score.toString();
+    if (scoreAsString.length == 1)
+      this.scoreboardGroup
+        .create(config.width / 2, 30, assets.scoreboard.base + this.score)
+        .setDepth(10);
+    else {
+      let initialPosition =
+        config.width / 2 -
+        (this.score.toString().length * assets.scoreboard.width) / 2;
 
       for (let i = 0; i < scoreAsString.length; i++) {
-          this.scoreboardGroup.create(initialPosition, 30, assets.scoreboard.base + scoreAsString[i]).setDepth(10)
-          initialPosition += assets.scoreboard.width
+        this.scoreboardGroup
+          .create(
+            initialPosition,
+            30,
+            assets.scoreboard.base + scoreAsString[i]
+          )
+          .setDepth(10);
+        initialPosition += assets.scoreboard.width;
       }
+    }
   }
-}
 
   getRandomBird() {
     switch (Phaser.Math.Between(0, 2)) {
@@ -365,15 +418,15 @@ updateScoreboard() {
 
   getAnimationBird(birdColor) {
     switch (birdColor) {
-        case assets.bird.yellow:
-          return assets.animation.bird.yellow
-          case assets.bird.blue:
-            return assets.animation.bird.blue
-            case assets.bird.yellow:
-              default:
-          return assets.animation.bird.red
+      case assets.bird.yellow:
+        return assets.animation.bird.yellow;
+      case assets.bird.blue:
+        return assets.animation.bird.blue;
+      case assets.bird.yellow:
+      default:
+        return assets.animation.bird.red;
     }
-}
+  }
 
   makePipes(scene) {
     if (!this.gameStarted || this.gameOver) return;
@@ -385,7 +438,11 @@ updateScoreboard() {
     gap.body.allowGravity = false;
     gap.visible = false;
 
-    const pipeTop = this.pipesGroup.create(config.width + 20, pipeTopY + 20, this.currentPipe.top);
+    const pipeTop = this.pipesGroup.create(
+      config.width + 20,
+      pipeTopY + 20,
+      this.currentPipe.top
+    );
     pipeTop.body.allowGravity = false;
 
     const pipeBottom = this.pipesGroup.create(
@@ -408,5 +465,20 @@ updateScoreboard() {
     score0.setDepth(20);
 
     this.makePipes(scene);
+  }
+
+  restartGame() {
+    // this.pipesGroup.clear(true, true);
+    // this.pipesGroup.clear(true, true);
+    this.gapsGroup.clear(true, true);
+    this.scoreboardGroup.clear(true, true);
+    this.bird.destroy();
+    this.gameOverBanner.visible = false;
+    this.restartButton.visible = false;
+
+    const gameScene = this;
+    this.prepareGame(gameScene);
+
+    gameScene.physics.resume();
   }
 }

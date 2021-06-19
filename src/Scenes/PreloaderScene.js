@@ -87,7 +87,7 @@ this.logo.displayHeight = game.config.height / 8;
   this.load.image('blueButton2', '/src/assets/ui/blue_button03.png');
   this.load.image('checkedBox', '/src/assets/ui/blue_boxCheckmark.png');
   this.load.image('box', '/src/assets/ui/grey_box.png');
-  this.load.image('gameover', '/src/assets/gameover/textGameOver.png')
+  this.load.image('game-over', '/src/assets/gameover/textGameOver.png')
   this.load.image('restart-button', '/src/assets/ui/restart-button.png')
   this.load.image('logo', '/src/assets/dshagui-logo.png')
   this.load.image('message-initial', '/src/assets/ui/message-initial.png')
