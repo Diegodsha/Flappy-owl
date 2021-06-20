@@ -7,6 +7,8 @@ import PreloaderScene from './Scenes/PreloaderScene';
 import TitleScene from './Scenes/TitleScene';
 import OptionsScene from './Scenes/OptionsScene';
 import CreditsScene from './Scenes/CreditsScene';
+import ScoreScene from './Scenes/ScoreBoard';
+import GameOverScene from './Scenes/GameOverScene'
 
 const resize = () => {
   const canvas = document.querySelector('canvas');
@@ -38,6 +40,8 @@ class Game extends Phaser.Game {
     this.scene.add('Title', TitleScene);
     this.scene.add('Options', OptionsScene);
     this.scene.add('Credits', CreditsScene);
+    this.scene.add('Scores', ScoreScene);
+    this.scene.add('GameOver', GameOverScene);
     this.scene.add('Game', GameScene);
 
     // this.scene.start('Game');
