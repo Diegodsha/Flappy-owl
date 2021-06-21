@@ -108,7 +108,6 @@ export default class GameScene extends Phaser.Scene {
 
     //add game utilities
     this.gapsGroup = this.physics.add.group();
-    // this.coinsGroup = this.physics.add.group()
     this.pipesGroup = this.physics.add.group();
     this.scoreboardGroup = this.physics.add.staticGroup();
 
@@ -121,10 +120,6 @@ export default class GameScene extends Phaser.Scene {
     this.ground.setCollideWorldBounds(true);
     this.ground.setDepth(10);
 
-    //add bird
-    // this.bird = this.physics.add.sprite(100, 250, assets.bird.red);
-    // this.bird.body.gravity.y = 1000;
-
     //initial
     this.messageInitial = this.add.image(
       assets.scene.width,
@@ -135,7 +130,6 @@ export default class GameScene extends Phaser.Scene {
     this.messageInitial.visible = false;
 
     //end
-
     this.gameOverBanner = this.add.image(
       config.width / 2,
       206,
@@ -143,13 +137,6 @@ export default class GameScene extends Phaser.Scene {
     );
     this.gameOverBanner.setDepth(20);
     this.gameOverBanner.visible = false;
-
-    // this.restartButton = this.add
-    //   .image(config.width/2, 300, assets.scene.restart)
-    //   .setInteractive();
-    // this.restartButton.on('pointerdown', this.restartGame);
-    // this.restartButton.setDepth(20);
-    // this.restartButton.visible = false;
 
     // Ground animations
     this.anims.create({
@@ -300,11 +287,6 @@ export default class GameScene extends Phaser.Scene {
     this.scoreButton.setDepth(20);
     this.scoreButton.visible = false;
 
-   
-
-    //move bird with click- or spacebar
-    // this.input.on('pointerdown', this.jump, this);
-    // this.input.keyboard.on('keydown-SPACE', this.jump, this);
     this.spaceBar = this.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
@@ -316,7 +298,6 @@ export default class GameScene extends Phaser.Scene {
     if (this.framesMoveUp > 0) this.framesMoveUp--;
     else if (Phaser.Input.Keyboard.JustDown(this.spaceBar)) this.fly();
     else {
-      // this.bird.setVelocityY(120)
       this.bird.body.allowGravity = true;
       this.bird.body.gravity.y = 1000;
       if (this.bird.angle < 90) this.bird.angle += 1;
@@ -342,24 +323,10 @@ export default class GameScene extends Phaser.Scene {
       this.makePipes(this);
       this.nextPipes = 0;
     }
-    // If the bird is out of the screen (too high or too low)
-    // Call the 'restartGame' function
-    // if (this.bird.y < 10 || this.bird.y > 580) this.restartGame();
   }
 
-  // jump() {
-  //   // Add a vertical velocity to the bird
-  //   this.bird.body.velocity.y = -350;
-  // }
-
   collectCoin(bird,coin) {
-    // this.coinSound.play();
     coin.disableBody(true,true)
-    //  coin.destroy()
-    // this.coinGroup.killAndHide(coin);
-    // this.coinGroup.remove(coin);
-    // this.score += 5;
-    // this.scoreText.setText(`Score: ${this.score}`);
   }
 
   fly() {
@@ -368,7 +335,6 @@ export default class GameScene extends Phaser.Scene {
     if (!this.gameStarted) this.startGame(this);
 
     this.bird.setVelocityY(-350);
-    // this.bird.body.velocity.y = -350;
     this.bird.angle = -15;
     this.framesMoveUp = 5;
   }
@@ -386,19 +352,14 @@ export default class GameScene extends Phaser.Scene {
     this.restartButton.visible = true;
     this.menuButton.visible = true
     this.scoreButton.visible = true
-    // console.log(this.score);
     const playerName = localStorage.getItem('playerName');
     this.data = uploadGameData(playerName,this.score)
-    // this.data.then(data=>{
 
-    // })
 
 
   }
 
-  // restartGame() {
-  //   this.scene.start('Game');
-  // }
+
   goHome(){
     this.scene.start('Title')
   }
@@ -419,7 +380,6 @@ export default class GameScene extends Phaser.Scene {
     this.restartButton.visible = false;
     this.menuButton.visible = false
 
-    const gameScene = this;
     this.prepareGame(this);
     this.physics.resume();
   }
@@ -550,7 +510,6 @@ export default class GameScene extends Phaser.Scene {
     gap.body.allowGravity = false;
     gap.visible = false;
 
-  // scene.physics.add.overlap(this.bird, this.coinGroup, this.collectCoin, null, this);
 
     if (this.coinPool.getLength()) {
       const coin = this.coinPool.getFirst();
