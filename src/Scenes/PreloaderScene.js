@@ -6,6 +6,12 @@ export default class PreloaderScene extends Phaser.Scene {
   }
  
   preload () {
+    //background
+     let bg = this.add.image(0,0,'background')
+    bg.displayHeight= game.config.height
+    bg.displayWidth= game.config.width
+    bg.y=game.config.height/2
+    bg.x=game.config.width/2
     // add logo image
   this.logo = this.add.image(400, 150, 'bird');
   this.logo.displayWidth = game.config.width / 6;
@@ -154,11 +160,11 @@ this.logo.displayHeight = game.config.height / 8;
   }
    
   ready () {
-    this.scene.start('Title');
+    this.scene.start('GameOver');
     // this.scene.start('Credits');
     this.readyCount++;
     if (this.readyCount === 2) {
-      this.scene.start('Title');
+      this.scene.start('GameOver');
     }
   }
   
