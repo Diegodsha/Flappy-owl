@@ -1,6 +1,6 @@
 import 'phaser';
 import config from '../Config/config';
-import { uploadGameData } from '../API/fetch'
+import { uploadGameData } from '../API/fetch';
 
 const assets = {
   bird: {
@@ -19,7 +19,7 @@ const assets = {
         bottom: 'pipe-red-bottom',
       },
     },
-    coin: 'coin'
+    coin: 'coin',
   },
   scene: {
     width: 144,
@@ -65,7 +65,7 @@ const assets = {
       moving: 'moving-ground',
       stop: 'stop-ground',
     },
-    coin: {rotate:'rotate-coin',stop:'coin-stop'}
+    coin: { rotate: 'rotate-coin', stop: 'coin-stop' },
   },
 };
 
@@ -84,7 +84,7 @@ export default class GameScene extends Phaser.Scene {
     this.gapGroup;
     this.birdName;
     this.bird;
-    this.pipesGroup
+    this.pipesGroup;
 
     //add background
     this.bgDay = this.add
@@ -249,22 +249,18 @@ export default class GameScene extends Phaser.Scene {
     });
 
     this.coinGroup = this.add.group({
-
       // once a coin is removed, it's added to the pool
       removeCallback: (coin) => {
         coin.scene.coinPool.add(coin);
       },
-
     });
 
     this.coinPool = this.add.group({
-
       // once a coin is removed from the pool, it's added to the active coins group
       removeCallback: (coin) => {
         coin.scene.coinGroup.add(coin);
       },
     });
-
 
     this.prepareGame(this);
 
@@ -272,18 +268,20 @@ export default class GameScene extends Phaser.Scene {
     this.gameOverBanner.setDepth(20);
     this.gameOverBanner.visible = false;
 
-    this.restartButton = this.add.image(400, 300, assets.scene.restart).setInteractive();
-    this.restartButton.on('pointerdown', this.restartGame, this)
+    this.restartButton = this.add
+      .image(400, 300, assets.scene.restart)
+      .setInteractive();
+    this.restartButton.on('pointerdown', this.restartGame, this);
     this.restartButton.setDepth(20);
     this.restartButton.visible = false;
 
     this.menuButton = this.add.image(400, 400, 'home-button').setInteractive();
-    this.menuButton.on('pointerdown', this.goHome, this)
+    this.menuButton.on('pointerdown', this.goHome, this);
     this.menuButton.setDepth(20);
     this.menuButton.visible = false;
 
     this.scoreButton = this.add.image(400, 500, 'leaderboard').setInteractive();
-    this.scoreButton.on('pointerdown', this.goScores, this)
+    this.scoreButton.on('pointerdown', this.goScores, this);
     this.scoreButton.setDepth(20);
     this.scoreButton.visible = false;
 
@@ -325,8 +323,8 @@ export default class GameScene extends Phaser.Scene {
     }
   }
 
-  collectCoin(bird,coin) {
-    coin.disableBody(true,true)
+  collectCoin(_, coin) {
+    coin.disableBody(true, true);
   }
 
   fly() {
@@ -350,23 +348,18 @@ export default class GameScene extends Phaser.Scene {
 
     this.gameOverBanner.visible = true;
     this.restartButton.visible = true;
-    this.menuButton.visible = true
-    this.scoreButton.visible = true
+    this.menuButton.visible = true;
+    this.scoreButton.visible = true;
     const playerName = localStorage.getItem('playerName');
-    this.data = uploadGameData(playerName,this.score)
-
-
-
+    this.data = uploadGameData(playerName, this.score);
   }
 
-
-  goHome(){
-    this.scene.start('Title')
+  goHome() {
+    this.scene.start('Title');
   }
 
-  goScores(){
-
-    this.scene.start('Scoreboard')
+  goScores() {
+    this.scene.start('Scoreboard');
   }
 
   restartGame() {
@@ -378,7 +371,7 @@ export default class GameScene extends Phaser.Scene {
     this.bird.destroy();
     this.gameOverBanner.visible = false;
     this.restartButton.visible = false;
-    this.menuButton.visible = false
+    this.menuButton.visible = false;
 
     this.prepareGame(this);
     this.physics.resume();
@@ -510,17 +503,24 @@ export default class GameScene extends Phaser.Scene {
     gap.body.allowGravity = false;
     gap.visible = false;
 
-
     if (this.coinPool.getLength()) {
       const coin = this.coinPool.getFirst();
       coin.x = config.width + 20;
-      coin.y = pipeTopY + 210, 0, 0, 0, 98;
+      (coin.y = pipeTopY + 210), 0, 0, 0, 98;
       coin.alpha = 1;
       coin.active = true;
       coin.visible = true;
       this.coinPool.remove(coin);
     } else {
-      const coin = this.physics.add.sprite(config.width + 20, pipeTopY + 220, 0, 0, 0, 98, 'coin');
+      const coin = this.physics.add.sprite(
+        config.width + 20,
+        pipeTopY + 220,
+        0,
+        0,
+        0,
+        98,
+        'coin'
+      );
       coin.setImmovable(true);
       coin.body.allowGravity = false;
       coin.anims.play(assets.animation.coin.rotate);
@@ -557,6 +557,4 @@ export default class GameScene extends Phaser.Scene {
 
     this.makePipes(scene);
   }
-
- 
 }

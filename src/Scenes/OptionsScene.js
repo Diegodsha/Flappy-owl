@@ -2,41 +2,47 @@ import 'phaser';
 import Button from '../Objects/Button';
 import config from '../Config/config';
 export default class OptionsScene extends Phaser.Scene {
-  constructor () {
+  constructor() {
     super('Options');
   }
 
- 
-  create () {
-    let bg = this.add.image(0,0,'background-night')
-    bg.displayHeight= game.config.height
-    bg.displayWidth= game.config.width
-    bg.y=game.config.height/2
-    bg.x=game.config.width/2
-   	
-this.model = this.sys.game.globals.model;
+  create() {
+    let bg = this.add.image(0, 0, 'background-night');
+    bg.displayHeight = game.config.height;
+    bg.displayWidth = game.config.width;
+    bg.y = game.config.height / 2;
+    bg.x = game.config.width / 2;
 
- 
-this.text = this.add.text(300, 100, 'Options', { fontSize: 40 });
-this.musicButton = this.add.image(280, 200, 'checkedBox');
-this.musicText = this.add.text(250, 190, 'Music Enabled', { fontSize: 24 });
-this.centerContent(this.text,2)
-this.centerContent(this.musicText,1)
+    this.model = this.sys.game.globals.model;
 
- 
-this.musicButton.setInteractive();
+    this.text = this.add.text(300, 100, 'Options', { fontSize: 40 });
+    this.musicButton = this.add.image(280, 200, 'checkedBox');
+    this.musicText = this.add.text(250, 190, 'Music Enabled', { fontSize: 24 });
+    this.centerContent(this.text, 2);
+    this.centerContent(this.musicText, 1);
 
- 
-this.musicButton.on('pointerdown', function () {
-this.model.musicOn = !this.model.musicOn;
-this.updateAudio();
-}.bind(this));
- 
- 
-this.menuButton = new Button(this, 400, 500, 'blueButton1', 'blueButton2', 'Menu', 'Title');
-this.centerContent(this.menuButton,-1)
+    this.musicButton.setInteractive();
 
-this.updateAudio();
+    this.musicButton.on(
+      'pointerdown',
+      function () {
+        this.model.musicOn = !this.model.musicOn;
+        this.updateAudio();
+      }.bind(this)
+    );
+
+    this.menuButton = new Button(
+      this,
+      400,
+      500,
+      'blueButton1',
+      'blueButton2',
+      'Menu',
+      'Title'
+    );
+    this.centerContent(this.menuButton, -1);
+
+    this.updateAudio();
   }
 
   updateAudio() {
@@ -51,10 +57,9 @@ this.updateAudio();
         this.model.bgMusicPlaying = true;
       }
     }
-   
   }
 
-   centerContent(gameObject, offset = 0) {
+  centerContent(gameObject, offset = 0) {
     Phaser.Display.Align.In.Center(
       gameObject,
       this.add.zone(
@@ -65,4 +70,4 @@ this.updateAudio();
       )
     );
   }
-};
+}

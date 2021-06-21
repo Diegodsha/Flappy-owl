@@ -46,7 +46,8 @@ export default class ScoreScene extends Phaser.Scene {
           fontFamily: 'Sans-serif',
         };
 
-        const { user, score } = topTenOwls[cell.index] !== undefined ? topTenOwls[cell.index] : seed;
+        const { user, score } =
+          topTenOwls[cell.index] !== undefined ? topTenOwls[cell.index] : seed;
 
         const rank = scene.add.text(10, 20, cell.index + 1, format);
         const name = scene.add.text(40, 20, user, format);
@@ -67,7 +68,6 @@ export default class ScoreScene extends Phaser.Scene {
         columns: 1,
         cellVisibleCallback: onCellVisible.bind(this),
       });
-
     });
   }
 }
