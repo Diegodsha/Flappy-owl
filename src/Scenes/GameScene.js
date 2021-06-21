@@ -1,5 +1,6 @@
 import 'phaser';
 import config from '../Config/config';
+// import { getGameData, uploadGameData } from '../API/fetch'
 
 const assets = {
   bird: {
@@ -246,6 +247,11 @@ export default class GameScene extends Phaser.Scene {
     this.restartButton.setDepth(20);
     this.restartButton.visible = false;
 
+    this.menuButton = this.add.image(400, 400, 'home-button').setInteractive();
+    this.menuButton.on('pointerdown', this.goHome, this)
+    this.menuButton.setDepth(20);
+    this.menuButton.visible = false;
+
     //move bird with click- or spacebar
     // this.input.on('pointerdown', this.jump, this);
     // this.input.keyboard.on('keydown-SPACE', this.jump, this);
@@ -314,11 +320,16 @@ export default class GameScene extends Phaser.Scene {
 
     this.gameOverBanner.visible = true;
     this.restartButton.visible = true;
+    this.menuButton.visible = true
   }
 
   // restartGame() {
   //   this.scene.start('Game');
   // }
+  goHome(){
+    this.scene.start('Title')
+  }
+
   restartGame() {
     this.pipesGroup.clear(true, true);
     this.pipesGroup.clear(true, true);
@@ -327,6 +338,7 @@ export default class GameScene extends Phaser.Scene {
     this.bird.destroy();
     this.gameOverBanner.visible = false;
     this.restartButton.visible = false;
+    this.menuButton.visible = false
 
     const gameScene = this;
     this.prepareGame(this);
