@@ -1,12 +1,25 @@
-/* body{
-    /* background-color:aqua ; */
-/* }  */
+body{
+     background-color:rgb(21, 136, 136) ;
+} 
 
-/* canvas {
-    display: block;
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-} */
+canvas {
+border-radius: 1rem;
+}
+
+#playerName{
+     border: none;
+     padding: .5rem;
+     border-radius: 1rem;
+     text-align: center;
+
+}
+#playerName:focus-visible{
+     border: none;
+}
+
+#submit{
+     margin-left: 10px;
+     border: none;
+     border-radius: 1rem;
+     padding: .5rem;
+}
