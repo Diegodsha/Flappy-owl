@@ -1,4 +1,4 @@
-import "regenerator-runtime/runtime.js";
+import 'regenerator-runtime/runtime';
 import { sortOwls } from "../helpers";
 const gameID = 'mdFQJuniXYEZdkJargKX';
 
@@ -20,21 +20,6 @@ const createGame = async () => {
   return game;
 };
 
-//update game info ---------------
-
-// const refreshGame = () => {
-//   getGameData(
-//     `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${gameID}/scores/`
-//   )
-//     .then((userScore) => {
-//       clean();
-//       displayInfo(userScore.result);
-//       console.log(userScore.result);
-//     })
-//     .catch((err) => {
-//       console.log(err, 'que pedo que paso? en refresh');
-//     });
-// };
 const uploadGameData = async (owlName, owlScore) => {
   const data = {
       user: owlName,
