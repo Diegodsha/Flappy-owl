@@ -19,7 +19,7 @@ export default class ScoreScene extends Phaser.Scene {
     this.title = this.add.text(320, 30, 'Top 10 Owls', {
       fontSize: '28px',
       fill: '#fff',
-      fontFamily: 'sans-serif',
+      fontFamily: 'Sans-serif',
     });
 
     this.menuButton = new Button(
@@ -42,8 +42,8 @@ export default class ScoreScene extends Phaser.Scene {
         const container = this.add.container(0, 0);
         const format = {
           fontSize: '16px',
-          fill: '#ffcc00',
-          fontFamily: 'Mate SC',
+          fill: '#fff',
+          fontFamily: 'Sans-serif',
         };
 
         const { user, score } = topTenOwls[cell.index] !== undefined ? topTenOwls[cell.index] : seed;

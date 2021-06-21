@@ -3,14 +3,11 @@ import config from '../Config/config.js';
 import {
   inputValidator,
   eltBuilder,
-//   retrieveOwl,
-//   checkField,
 } from '../helpers';
-// import { uploadKata } from '../system/api.js';
 
-export default class GameOverScene extends Phaser.Scene {
+export default class WelcomeScene extends Phaser.Scene {
   constructor() {
-    super('GameOver');
+    super('Welcome');
   }
 
   create() {
@@ -46,7 +43,7 @@ const container = document.getElementById('container')
       }));
 
     const fields = this.add.dom(
-      config.width/2,
+      config.width/2 + 150,
       250,
       div,
     );
@@ -63,27 +60,13 @@ const container = document.getElementById('container')
         localStorage.setItem('playerName', playerName.value);
   
         this.scene.start('Title');
-        // this.upload = uploadKata(this.playerName, totalKata);
-        // this.upload.then((info) => {
-        //   this.notice = this.add.text(200, 355, `${info.result}..`, {
-        //     fontSize: '24px',
-        //     fill: '#fff',
-        //     fontFamily: 'sans-serif',
-        //   });
-        //   this.time.delayedCall(1500, this.showLeaderBoard, [], this);
-        //   fields.destroy();
-        // });
+
       } else if (e.target.matches('#submit') && inputValidator(playerName) === false) {
         playerName.classList.add('is-invalid');
       }
     });
 
-    this.checkLocalStorage()
   }
 
-  checkLocalStorage() {
-    if (localStorage.playerName) {
-        console.log('exixst');
-    }
-  }
+
 }

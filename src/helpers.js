@@ -3,17 +3,8 @@ const inputValidator = (field) => {
     return !!rex.exec(field.value);
   };
 
-  const sortOwls = (data) => data.sort((owl1, owl2) => owl1.score - owl2.score);
+  const sortOwls = (data) => data.sort((owl1, owl2) => owl2.score - owl1.score);
 
-const storeOwl = (owl) => {
-  const obj = JSON.stringify(owl);
-  localStorage.setItem('owl', obj);
-};
-
-const retrieveOwl = () => {
-  const obj = localStorage.getItem('owl') ? JSON.parse(localStorage.getItem('owl')) : 0;
-  return obj;
-};
 
 const eltBuilder = (name, attrs, ...children) => {
     const dom = document.createElement(name);
@@ -30,7 +21,5 @@ const eltBuilder = (name, attrs, ...children) => {
 export {
     inputValidator,
     sortOwls,
-    storeOwl,
-    retrieveOwl,
     eltBuilder
 }

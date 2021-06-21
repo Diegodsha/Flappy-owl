@@ -1,6 +1,6 @@
 import 'phaser';
 import config from '../Config/config';
-import { getGameData, uploadGameData } from '../API/fetch'
+import { uploadGameData } from '../API/fetch'
 
 const assets = {
   bird: {
@@ -102,7 +102,7 @@ export default class GameScene extends Phaser.Scene {
     this.bgNight.y = game.config.height / 2;
     this.bgNight.x = game.config.width / 2;
     this.bgNight.visible = false;
-    // this.bgDay.on('pointerdown', moveBird)
+    this.bgNight.on('pointerdown', this.fly, this);
 
     //add game utilities
     this.gapsGroup = this.physics.add.group();
@@ -252,6 +252,11 @@ export default class GameScene extends Phaser.Scene {
     this.menuButton.setDepth(20);
     this.menuButton.visible = false;
 
+    this.scoreButton = this.add.image(400, 500, 'leaderboard').setInteractive();
+    this.scoreButton.on('pointerdown', this.goScores, this)
+    this.scoreButton.setDepth(20);
+    this.scoreButton.visible = false;
+
     //move bird with click- or spacebar
     // this.input.on('pointerdown', this.jump, this);
     // this.input.keyboard.on('keydown-SPACE', this.jump, this);
@@ -309,7 +314,7 @@ export default class GameScene extends Phaser.Scene {
     this.framesMoveUp = 5;
   }
 
-  hitBird(player) {
+  hitBird() {
     this.physics.pause();
 
     this.gameOver = true;
@@ -321,6 +326,7 @@ export default class GameScene extends Phaser.Scene {
     this.gameOverBanner.visible = true;
     this.restartButton.visible = true;
     this.menuButton.visible = true
+    this.scoreButton.visible = true
     // console.log(this.score);
     const playerName = localStorage.getItem('playerName');
     this.data = uploadGameData(playerName,this.score)
@@ -336,6 +342,11 @@ export default class GameScene extends Phaser.Scene {
   // }
   goHome(){
     this.scene.start('Title')
+  }
+
+  goScores(){
+
+    this.scene.start('Scoreboard')
   }
 
   restartGame() {

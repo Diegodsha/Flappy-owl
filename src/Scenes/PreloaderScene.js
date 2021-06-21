@@ -160,11 +160,11 @@ this.logo.displayHeight = game.config.height / 8;
   }
    
   ready () {
-    this.scene.start('GameOver');
+    this.scene.start('Welcome');
     // this.scene.start('Credits');
     this.readyCount++;
     if (this.readyCount === 2) {
-      this.scene.start('GameOver');
+      this.scene.start('Welcome');
     }
   }
   
