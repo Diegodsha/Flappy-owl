@@ -19,6 +19,7 @@ const assets = {
         bottom: 'pipe-red-bottom',
       },
     },
+    coin: 'coin'
   },
   scene: {
     width: 144,
@@ -64,6 +65,7 @@ const assets = {
       moving: 'moving-ground',
       stop: 'stop-ground',
     },
+    coin: {rotate:'rotate-coin',stop:'coin-stop'}
   },
 };
 
@@ -106,6 +108,7 @@ export default class GameScene extends Phaser.Scene {
 
     //add game utilities
     this.gapsGroup = this.physics.add.group();
+    // this.coinsGroup = this.physics.add.group()
     this.pipesGroup = this.physics.add.group();
     this.scoreboardGroup = this.physics.add.staticGroup();
 
@@ -236,6 +239,46 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 20,
     });
 
+    //coin animation
+    this.anims.create({
+      key: assets.animation.coin.rotate,
+      frames: this.anims.generateFrameNumbers(assets.obstacle.coin, {
+        start: 0,
+        end: 4,
+      }),
+      frameRate: 15,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: assets.animation.coin.stop,
+      frames: [
+        {
+          key: assets.obstacle.coin,
+          frame: 4,
+        },
+      ],
+      frameRate: 20,
+    });
+
+    this.coinGroup = this.add.group({
+
+      // once a coin is removed, it's added to the pool
+      removeCallback: (coin) => {
+        coin.scene.coinPool.add(coin);
+      },
+
+    });
+
+    this.coinPool = this.add.group({
+
+      // once a coin is removed from the pool, it's added to the active coins group
+      removeCallback: (coin) => {
+        coin.scene.coinGroup.add(coin);
+      },
+    });
+
+
     this.prepareGame(this);
 
     this.gameOverBanner = this.add.image(400, 100, assets.scene.gameOver);
@@ -256,6 +299,8 @@ export default class GameScene extends Phaser.Scene {
     this.scoreButton.on('pointerdown', this.goScores, this)
     this.scoreButton.setDepth(20);
     this.scoreButton.visible = false;
+
+   
 
     //move bird with click- or spacebar
     // this.input.on('pointerdown', this.jump, this);
@@ -288,6 +333,10 @@ export default class GameScene extends Phaser.Scene {
       child.body.setVelocityX(-100);
     });
 
+    this.coinGroup.children.iterate(function (child) {
+      child.body.setVelocityX(-100);
+    });
+
     this.nextPipes++;
     if (this.nextPipes === 130) {
       this.makePipes(this);
@@ -302,6 +351,16 @@ export default class GameScene extends Phaser.Scene {
   //   // Add a vertical velocity to the bird
   //   this.bird.body.velocity.y = -350;
   // }
+
+  collectCoin(bird,coin) {
+    // this.coinSound.play();
+    coin.disableBody(true,true)
+    //  coin.destroy()
+    // this.coinGroup.killAndHide(coin);
+    // this.coinGroup.remove(coin);
+    // this.score += 5;
+    // this.scoreText.setText(`Score: ${this.score}`);
+  }
 
   fly() {
     if (this.gameOver) return;
@@ -353,6 +412,7 @@ export default class GameScene extends Phaser.Scene {
     this.pipesGroup.clear(true, true);
     this.pipesGroup.clear(true, true);
     this.gapsGroup.clear(true, true);
+    this.coinGroup.clear(true, true);
     this.scoreboardGroup.clear(true, true);
     this.bird.destroy();
     this.gameOverBanner.visible = false;
@@ -399,6 +459,14 @@ export default class GameScene extends Phaser.Scene {
       this.bird,
       this.gapsGroup,
       this.updateScore,
+      null,
+      scene
+    );
+
+    this.physics.add.overlap(
+      this.bird,
+      this.coinGroup,
+      this.collectCoin,
       null,
       scene
     );
@@ -482,6 +550,25 @@ export default class GameScene extends Phaser.Scene {
     gap.body.allowGravity = false;
     gap.visible = false;
 
+  // scene.physics.add.overlap(this.bird, this.coinGroup, this.collectCoin, null, this);
+
+    if (this.coinPool.getLength()) {
+      const coin = this.coinPool.getFirst();
+      coin.x = config.width + 20;
+      coin.y = pipeTopY + 210, 0, 0, 0, 98;
+      coin.alpha = 1;
+      coin.active = true;
+      coin.visible = true;
+      this.coinPool.remove(coin);
+    } else {
+      const coin = this.physics.add.sprite(config.width + 20, pipeTopY + 220, 0, 0, 0, 98, 'coin');
+      coin.setImmovable(true);
+      coin.body.allowGravity = false;
+      coin.anims.play(assets.animation.coin.rotate);
+      coin.setDepth(2);
+      this.coinGroup.add(coin);
+    }
+
     const pipeTop = this.pipesGroup.create(
       config.width + 20,
       pipeTopY + 20,
@@ -500,6 +587,7 @@ export default class GameScene extends Phaser.Scene {
   startGame(scene) {
     this.gameStarted = true;
     this.messageInitial.visible = false;
+    this.scoreButton.visible = false;
 
     const score0 = this.scoreboardGroup.create(
       config.width / 2,
