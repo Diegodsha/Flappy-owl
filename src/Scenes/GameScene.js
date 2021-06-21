@@ -365,6 +365,7 @@ export default class GameScene extends Phaser.Scene {
     this.gameOverBanner.visible = false;
     this.restartButton.visible = false;
     this.menuButton.visible = false;
+    this.scoreButton.visible = false;
 
     this.prepareGame(this);
     this.physics.resume();
