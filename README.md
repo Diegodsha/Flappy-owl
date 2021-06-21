@@ -1,5 +1,6 @@
-# Flappy-owl Game
-Phaser 3 Game 
+# Flappy owl Game
+
+A Phaser 3 Game 
 
 <p align="center">
   <a href="https://github.com/Diegodsha/Flappy-owl/issues">
@@ -39,10 +40,15 @@ Phaser 3 Game
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/08942cd1-5255-4122-a2c1-32302e7ef22f/deploy-status)](https://app.netlify.com/sites/thirsty-bhaskara-8563f9/deploys)
 
-Visit [Flappy-owl](https://Flappy-owl.netlify.app/)
+Visit [Flappy-owl](https://60d0fcd23b543e0008042694--thirsty-bhaskara-8563f9.netlify.app/)
 
 ## Prerequisites
-- Internet browser compatible with HTML5, CSS3 and Javascript ES6
+  - Internet Connection
+  - Web Browser
+  - Screen size medium to large (Tablet on landscape, or PC)
+  - Code Editor 
+  - Node Package Manager (NPM)
+
 
 ## Getting Started
 
@@ -55,6 +61,10 @@ Visit [Flappy-owl](https://Flappy-owl.netlify.app/)
 
 From within the project directory open the `index.html` file within dist folder or after runing `npm i` to install all dependencies  run `npm start`
 
+
+### Testing (JEST)
+
+A script for testing was added, so user can simply run `npm test` from within the project's folder to execute all the tests.
 
 ## Author
 <div align="center">
