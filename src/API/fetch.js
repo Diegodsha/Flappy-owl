@@ -1,5 +1,6 @@
 import 'regenerator-runtime/runtime';
-import { sortOwls } from "../helpers";
+import { sortOwls } from '../helpers';
+
 const gameID = 'mdFQJuniXYEZdkJargKX';
 
 const createGame = async () => {
@@ -12,7 +13,7 @@ const createGame = async () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ name: 'Flappy owl' }),
-    }
+    },
   );
 
   const responseObj = await response.json();
@@ -22,10 +23,11 @@ const createGame = async () => {
 
 const uploadGameData = async (owlName, owlScore) => {
   const data = {
-      user: owlName,
-      score: owlScore
-  }
-  const url = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${gameID}/scores/`
+    user: owlName,
+    score: owlScore,
+  };
+
+  const url = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${gameID}/scores/`;
   const response = await fetch(url, {
     mode: 'cors',
     method: 'POST',
@@ -35,23 +37,22 @@ const uploadGameData = async (owlName, owlScore) => {
     body: JSON.stringify(data),
   });
   const responseObj = response.json();
-  return responseObj
-}
+  return responseObj;
+};
 
 const getGameData = async () => {
-    try {
-        
-        const url = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${gameID}/scores/`
-        const response = await fetch(url);
-        const responseObj =  await response.json();
-        return sortOwls(responseObj.result)
-    } catch (error) {
-        throw Error('No data found')
-    }
-}
+  try {
+    const url = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${gameID}/scores/`;
+    const response = await fetch(url);
+    const responseObj = await response.json();
+    return sortOwls(responseObj.result);
+  } catch (error) {
+    throw Error('No data found');
+  }
+};
 
-export{
-    getGameData,
-    uploadGameData,
-    createGame
-}
+export {
+  getGameData,
+  uploadGameData,
+  createGame,
+};

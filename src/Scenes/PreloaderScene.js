@@ -1,4 +1,5 @@
-import 'phaser';
+import Phaser from 'phaser';
+import config from '../Config/config';
 
 export default class PreloaderScene extends Phaser.Scene {
   constructor() {
@@ -6,20 +7,20 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   preload() {
-    //background
-    let bg = this.add.image(0, 0, 'background');
-    bg.displayHeight = game.config.height;
-    bg.displayWidth = game.config.width;
-    bg.y = game.config.height / 2;
-    bg.x = game.config.width / 2;
+    // background
+    const bg = this.add.image(0, 0, 'background');
+    bg.displayHeight = config.height;
+    bg.displayWidth = config.width;
+    bg.y = config.height / 2;
+    bg.x = config.width / 2;
     // add logo image
     this.logo = this.add.image(400, 150, 'bird');
-    this.logo.displayWidth = game.config.width / 6;
-    this.logo.displayHeight = game.config.height / 7;
+    this.logo.displayWidth = config.width / 6;
+    this.logo.displayHeight = config.height / 7;
 
     this.logo = this.add.image(400, 450, 'logo');
-    this.logo.displayWidth = game.config.width / 5;
-    this.logo.displayHeight = game.config.height / 8;
+    this.logo.displayWidth = config.width / 5;
+    this.logo.displayHeight = config.height / 8;
 
     // display progress bar
     const progressBar = this.add.graphics();
@@ -27,8 +28,8 @@ export default class PreloaderScene extends Phaser.Scene {
     progressBox.fillStyle(0x222222, 0.8);
     progressBox.fillRect(230, 270, 320, 50);
 
-    const width = this.cameras.main.width;
-    const height = this.cameras.main.height;
+    const { width } = this.cameras.main.width;
+    const { height } = this.cameras.main.height;
     const loadingText = this.make.text({
       x: width / 2,
       y: height / 2 - 50,
@@ -63,35 +64,33 @@ export default class PreloaderScene extends Phaser.Scene {
     assetText.setOrigin(0.5, 0.5);
 
     // update progress bar
-    this.load.on('progress', function (value) {
-      percentText.setText(parseInt(value * 100) + '%');
+    this.load.on('progress', (value) => {
+      percentText.setText(`${parseInt(value * 100, 10)} %`);
       progressBar.clear();
       progressBar.fillStyle(0xffffff, 1);
       progressBar.fillRect(240, 280, 300 * value, 30);
     });
 
     // update file progress text
-    this.load.on('fileprogress', function (file) {
-      assetText.setText('Loading asset: ' + file.key);
+    this.load.on('fileprogress', (file) => {
+      assetText.setText(`Loading asset: ${file.key}`);
     });
 
     // remove progress bar when complete
-    this.load.on(
-      'complete',
-      function () {
+    this.load.on('complete',
+      () => {
         progressBar.destroy();
         progressBox.destroy();
         loadingText.destroy();
         percentText.destroy();
         assetText.destroy();
         this.ready();
-      }.bind(this)
-    );
+      });
 
     this.timedEvent = this.time.delayedCall(3000, this.ready, [], this);
 
     // load assets needed in our game
-    //ui
+    // ui
     this.load.image('blueButton1', '/src/assets/ui/blue_button02.png');
     this.load.image('blueButton2', '/src/assets/ui/blue_button03.png');
     this.load.image('checkedBox', '/src/assets/ui/blue_boxCheckmark.png');
@@ -107,24 +106,24 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('message-initial', '/src/assets/ui/message-initial.png');
     this.load.image('logo', '/src/assets/dshagui-logo.png');
 
-    //backgrounḍ and ground
+    // backgrounḍ and ground
     this.load.image(
       'background-day',
-      '/src/assets/backgrounds/background-day.png'
+      '/src/assets/backgrounds/background-day.png',
     );
     this.load.image(
       'background-night',
-      '/src/assets/backgrounds/background-night.png'
+      '/src/assets/backgrounds/background-night.png',
     );
     this.load.spritesheet('ground', '/src/assets/platforms/ground-sprite.png', {
       frameWidth: 800,
       frameHeight: 112,
     });
 
-    //music & sounds
+    // music & sounds
     this.load.audio('bgMusic', ['/src/assets/TownTheme.mp3']);
 
-    //bird
+    // bird
     this.load.spritesheet('bird-red', '/src/assets/hero/bird-red-sprite.png', {
       frameWidth: 34,
       frameHeight: 24,
@@ -135,38 +134,35 @@ export default class PreloaderScene extends Phaser.Scene {
       {
         frameWidth: 34,
         frameHeight: 24,
-      }
+      },
     );
+
     this.load.spritesheet(
       'bird-blue',
       '/src/assets/hero/bird-blue-sprite.png',
       {
         frameWidth: 34,
         frameHeight: 24,
-      }
+      },
     );
 
     // pipes and coins
-    this.load.image(
-      'pipe-green-top',
-      '/src/assets/platforms/pipe-green-top.png'
-    );
-    this.load.image(
-      'pipe-green-bottom',
-      '/src/assets/platforms/pipe-green-bottom.png'
-    );
+    this.load.image('pipe-green-top',
+      '/src/assets/platforms/pipe-green-top.png');
+
+    this.load.image('pipe-green-bottom',
+      '/src/assets/platforms/pipe-green-bottom.png');
+
     this.load.image('pipe-red-top', '/src/assets/platforms/pipe-red-top.png');
-    this.load.image(
-      'pipe-red-bottom',
-      '/src/assets/platforms/pipe-red-bottom.png'
-    );
+    this.load.image('pipe-red-bottom',
+      '/src/assets/platforms/pipe-red-bottom.png');
 
     this.load.spritesheet('coin', '/src/assets/coins/coin_gold.png', {
       frameWidth: 20,
       frameHeight: 20,
     });
 
-    //numbers
+    // numbers
     this.load.image('number0', '/src/assets/ui/number0.png');
     this.load.image('number1', '/src/assets/ui/number1.png');
     this.load.image('number2', '/src/assets/ui/number2.png');
@@ -186,7 +182,7 @@ export default class PreloaderScene extends Phaser.Scene {
   ready() {
     this.scene.start('Welcome');
     // this.scene.start('Credits');
-    this.readyCount++;
+    this.readyCount += 1;
     if (this.readyCount === 2) {
       this.scene.start('Welcome');
     }

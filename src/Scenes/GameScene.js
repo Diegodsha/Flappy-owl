@@ -1,4 +1,5 @@
-import 'phaser';
+/* eslint-disable class-methods-use-this */
+import Phaser from 'phaser';
 import config from '../Config/config';
 import { uploadGameData } from '../API/fetch';
 
@@ -75,66 +76,60 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
-    this.framesMoveUp;
-    this.gameOver;
-    this.gameStarted;
-    this.score;
-    this.currentPipe;
-    this.nextPipes;
-    this.gapGroup;
-    this.birdName;
-    this.bird;
-    this.pipesGroup;
+    // this.framesMoveUp;
+    // this.gameOver;
+    // this.gameStarted;
+    // this.score;
+    // this.currentPipe;
+    // this.nextPipes;
+    // this.gapGroup;
+    // this.birdName;
+    // this.bird;
+    // this.pipesGroup;
 
-    //add background
+    // add background
     this.bgDay = this.add
       .image(0, 0, assets.scene.background.day)
       .setInteractive();
-    this.bgDay.displayHeight = game.config.height;
-    this.bgDay.displayWidth = game.config.width;
-    this.bgDay.y = game.config.height / 2;
-    this.bgDay.x = game.config.width / 2;
+    this.bgDay.displayHeight = config.height;
+    this.bgDay.displayWidth = config.width;
+    this.bgDay.y = config.height / 2;
+    this.bgDay.x = config.width / 2;
     this.bgDay.on('pointerdown', this.fly, this);
 
     this.bgNight = this.add
       .image(0, 0, assets.scene.background.night)
       .setInteractive();
-    this.bgNight.displayHeight = game.config.height;
-    this.bgNight.displayWidth = game.config.width;
-    this.bgNight.y = game.config.height / 2;
-    this.bgNight.x = game.config.width / 2;
+    this.bgNight.displayHeight = config.height;
+    this.bgNight.displayWidth = config.width;
+    this.bgNight.y = config.height / 2;
+    this.bgNight.x = config.width / 2;
     this.bgNight.visible = false;
     this.bgNight.on('pointerdown', this.fly, this);
 
-    //add game utilities
+    // add game utilities
     this.gapsGroup = this.physics.add.group();
     this.pipesGroup = this.physics.add.group();
     this.scoreboardGroup = this.physics.add.staticGroup();
 
-    //add ground
-    this.ground = this.physics.add.sprite(
-      assets.scene.width,
+    // add ground
+    this.ground = this.physics.add.sprite(assets.scene.width,
       600,
-      assets.scene.ground
-    );
+      assets.scene.ground);
     this.ground.setCollideWorldBounds(true);
     this.ground.setDepth(10);
 
-    //initial
-    this.messageInitial = this.add.image(
-      assets.scene.width,
+    // initial
+    this.messageInitial = this.add.image(assets.scene.width,
       156,
-      assets.scene.messageInitial
-    );
+      assets.scene.messageInitial);
     this.messageInitial.setDepth(30);
     this.messageInitial.visible = false;
 
-    //end
-    this.gameOverBanner = this.add.image(
-      config.width / 2,
+    // end
+    this.gameOverBanner = this.add.image(config.width / 2,
       206,
-      assets.scene.gameOver
-    );
+      assets.scene.gameOver);
     this.gameOverBanner.setDepth(20);
     this.gameOverBanner.visible = false;
 
@@ -160,7 +155,7 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 20,
     });
 
-    //Red Bird Animations
+    // Red Bird Animations
     this.anims.create({
       key: assets.animation.bird.red.clapWings,
       frames: this.anims.generateFrameNumbers(assets.bird.red, {
@@ -182,7 +177,7 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 20,
     });
 
-    //blue Bird Animations
+    // blue Bird Animations
     this.anims.create({
       key: assets.animation.bird.blue.clapWings,
       frames: this.anims.generateFrameNumbers(assets.bird.blue, {
@@ -204,7 +199,7 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 20,
     });
 
-    //yellow Bird Animations
+    // yellow Bird Animations
     this.anims.create({
       key: assets.animation.bird.yellow.clapWings,
       frames: this.anims.generateFrameNumbers(assets.bird.yellow, {
@@ -226,7 +221,7 @@ export default class GameScene extends Phaser.Scene {
       frameRate: 20,
     });
 
-    //coin animation
+    // coin animation
     this.anims.create({
       key: assets.animation.coin.rotate,
       frames: this.anims.generateFrameNumbers(assets.obstacle.coin, {
@@ -285,15 +280,13 @@ export default class GameScene extends Phaser.Scene {
     this.scoreButton.setDepth(20);
     this.scoreButton.visible = false;
 
-    this.spaceBar = this.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.SPACE
-    );
+    this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
   }
 
   update() {
     if (this.gameOver || !this.gameStarted) return;
 
-    if (this.framesMoveUp > 0) this.framesMoveUp--;
+    if (this.framesMoveUp > 0) this.framesMoveUp -= 1;
     else if (Phaser.Input.Keyboard.JustDown(this.spaceBar)) this.fly();
     else {
       this.bird.body.allowGravity = true;
@@ -301,22 +294,22 @@ export default class GameScene extends Phaser.Scene {
       if (this.bird.angle < 90) this.bird.angle += 1;
     }
 
-    this.pipesGroup.children.iterate(function (child) {
-      if (child == undefined) return;
+    this.pipesGroup.children.iterate((child) => {
+      if (child === undefined) return;
 
       if (child.x < -50) child.destroy();
       else child.setVelocityX(-100);
     });
 
-    this.gapsGroup.children.iterate(function (child) {
+    this.gapsGroup.children.iterate((child) => {
       child.body.setVelocityX(-100);
     });
 
-    this.coinGroup.children.iterate(function (child) {
+    this.coinGroup.children.iterate((child) => {
       child.body.setVelocityX(-100);
     });
 
-    this.nextPipes++;
+    this.nextPipes += 1;
     if (this.nextPipes === 130) {
       this.makePipes(this);
       this.nextPipes = 0;
@@ -393,51 +386,45 @@ export default class GameScene extends Phaser.Scene {
     this.bird.anims.play(this.getAnimationBird(this.birdName).clapWings, true);
     this.bird.body.allowGravity = false;
 
-    this.physics.add.collider(
-      this.bird,
+    this.physics.add.collider(this.bird,
       this.ground,
       this.hitBird,
       null,
-      scene
-    );
-    this.physics.add.collider(
-      this.bird,
+      scene);
+    this.physics.add.collider(this.bird,
       this.pipesGroup,
       this.hitBird,
       null,
-      scene
-    );
+      scene);
 
-    this.physics.add.overlap(
-      this.bird,
+    this.physics.add.overlap(this.bird,
       this.gapsGroup,
       this.updateScore,
       null,
-      scene
-    );
+      scene);
 
-    this.physics.add.overlap(
-      this.bird,
+    this.physics.add.overlap(this.bird,
       this.coinGroup,
       this.collectCoin,
       null,
-      scene
-    );
+      scene);
 
     this.ground.anims.play(assets.animation.ground.moving, true);
   }
 
   updateScore(_, gap) {
-    this.score++;
+    this.score += 1;
     gap.destroy();
 
-    if (this.score % 10 == 0) {
+    if (this.score % 10 === 0) {
       this.bgDay.visible = !this.bgDay.visible;
       this.bgNight.visible = !this.bgNight.visible;
 
-      if (this.currentPipe === assets.obstacle.pipe.green)
+      if (this.currentPipe === assets.obstacle.pipe.green) {
         this.currentPipe = assets.obstacle.pipe.red;
-      else this.currentPipe = assets.obstacle.pipe.green;
+      } else {
+        this.currentPipe = assets.obstacle.pipe.green;
+      }
     }
 
     this.updateScoreboard();
@@ -447,22 +434,19 @@ export default class GameScene extends Phaser.Scene {
     this.scoreboardGroup.clear(true, true);
 
     const scoreAsString = this.score.toString();
-    if (scoreAsString.length == 1)
+    if (scoreAsString.length === 1) {
       this.scoreboardGroup
         .create(config.width / 2, 30, assets.scoreboard.base + this.score)
         .setDepth(10);
-    else {
-      let initialPosition =
-        config.width / 2 -
-        (this.score.toString().length * assets.scoreboard.width) / 2;
+    } else {
+      let initialPosition = config.width / 2 - (this.score.toString().length
+      * assets.scoreboard.width) / 2;
 
-      for (let i = 0; i < scoreAsString.length; i++) {
+      for (let i = 0; i < scoreAsString.length; i += 1) {
         this.scoreboardGroup
-          .create(
-            initialPosition,
+          .create(initialPosition,
             30,
-            assets.scoreboard.base + scoreAsString[i]
-          )
+            assets.scoreboard.base + scoreAsString[i])
           .setDepth(10);
         initialPosition += assets.scoreboard.width;
       }
@@ -487,7 +471,6 @@ export default class GameScene extends Phaser.Scene {
         return assets.animation.bird.yellow;
       case assets.bird.blue:
         return assets.animation.bird.blue;
-      case assets.bird.yellow:
       default:
         return assets.animation.bird.red;
     }
@@ -506,21 +489,19 @@ export default class GameScene extends Phaser.Scene {
     if (this.coinPool.getLength()) {
       const coin = this.coinPool.getFirst();
       coin.x = config.width + 20;
-      (coin.y = pipeTopY + 210), 0, 0, 0, 98;
+      coin.y = pipeTopY + 210;
       coin.alpha = 1;
       coin.active = true;
       coin.visible = true;
       this.coinPool.remove(coin);
     } else {
-      const coin = this.physics.add.sprite(
-        config.width + 20,
+      const coin = this.physics.add.sprite(config.width + 20,
         pipeTopY + 220,
         0,
         0,
         0,
         98,
-        'coin'
-      );
+        'coin');
       coin.setImmovable(true);
       coin.body.allowGravity = false;
       coin.anims.play(assets.animation.coin.rotate);
@@ -528,18 +509,14 @@ export default class GameScene extends Phaser.Scene {
       this.coinGroup.add(coin);
     }
 
-    const pipeTop = this.pipesGroup.create(
-      config.width + 20,
+    const pipeTop = this.pipesGroup.create(config.width + 20,
       pipeTopY + 20,
-      this.currentPipe.top
-    );
+      this.currentPipe.top);
     pipeTop.body.allowGravity = false;
 
-    const pipeBottom = this.pipesGroup.create(
-      config.width + 20,
+    const pipeBottom = this.pipesGroup.create(config.width + 20,
       pipeTopY + 440,
-      this.currentPipe.bottom
-    );
+      this.currentPipe.bottom);
     pipeBottom.body.allowGravity = false;
   }
 
@@ -548,11 +525,9 @@ export default class GameScene extends Phaser.Scene {
     this.messageInitial.visible = false;
     this.scoreButton.visible = false;
 
-    const score0 = this.scoreboardGroup.create(
-      config.width / 2,
+    const score0 = this.scoreboardGroup.create(config.width / 2,
       30,
-      assets.scoreboard.number0
-    );
+      assets.scoreboard.number0);
     score0.setDepth(20);
 
     this.makePipes(scene);
