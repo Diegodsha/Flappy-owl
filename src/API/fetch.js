@@ -54,15 +54,15 @@ const uploadGameData = async (owlName, owlScore) => {
 }
 
 const getGameData = async () => {
-    // try {
+    try {
         
         const url = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${gameID}/scores/`
         const response = await fetch(url);
-        const responseObj =  response.json();
+        const responseObj =  await response.json();
         return sortOwls(responseObj.result)
-    // } catch (error) {
-    //     throw Error('No data found')
-    // }
+    } catch (error) {
+        throw Error('No data found')
+    }
 }
 
 export{

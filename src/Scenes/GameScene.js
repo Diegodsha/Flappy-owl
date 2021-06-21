@@ -1,6 +1,6 @@
 import 'phaser';
 import config from '../Config/config';
-// import { getGameData, uploadGameData } from '../API/fetch'
+import { getGameData, uploadGameData } from '../API/fetch'
 
 const assets = {
   bird: {
@@ -321,6 +321,14 @@ export default class GameScene extends Phaser.Scene {
     this.gameOverBanner.visible = true;
     this.restartButton.visible = true;
     this.menuButton.visible = true
+    // console.log(this.score);
+    const playerName = localStorage.getItem('playerName');
+    this.data = uploadGameData(playerName,this.score)
+    // this.data.then(data=>{
+
+    // })
+
+
   }
 
   // restartGame() {
