@@ -4,8 +4,10 @@
   "description": "A Phaser 3 Game",
   "main": "src/index.js",
   "scripts": {
+    "test": "jest",
     "build": "webpack --config webpack/prod.js ",
-    "start": "webpack-dev-server --config webpack/base.js --open"
+    "start": "webpack-dev-server --config webpack/base.js --open",
+    "watch": "jest --watch *.js"
   },
   "repository": {
     "type": "git",
