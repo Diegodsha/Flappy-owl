@@ -86,7 +86,6 @@ export default class GameScene extends Phaser.Scene {
     this.bird;
     this.pipesGroup;
 
-    //add background
     this.bgDay = this.add
       .image(0, 0, assets.scene.background.day)
       .setInteractive();
@@ -106,7 +105,6 @@ export default class GameScene extends Phaser.Scene {
     this.bgNight.visible = false;
     this.bgNight.on('pointerdown', this.fly, this);
 
-    //add game utilities
     this.gapsGroup = this.physics.add.group();
     this.pipesGroup = this.physics.add.group();
     this.scoreboardGroup = this.physics.add.staticGroup();
