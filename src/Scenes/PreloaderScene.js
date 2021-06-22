@@ -1,5 +1,38 @@
 import Phaser from 'phaser';
 import config from '../Config/config';
+import bluebtn1 from '../assets/ui/blue_button02.png';
+import bluebtn2 from '../assets/ui/blue_button03.png';
+import boxChekMark from '../assets/ui/blue_boxCheckmark.png';
+import boxEmpty from '../assets/ui/grey_box.png';
+import gameOver from '../assets/textGameOver.png';
+import restartBtn from '../assets/ui/restart-button.png';
+import homeBtn from '../assets/ui/home.png';
+import leaderboard from '../assets/ui/leaderboard.png';
+import leaderbord2 from '../assets/ui/leaderboard2.png';
+import logo from '../assets/dshagui-logo.png';
+import messageInitial from '../assets/ui/message-initial.png';
+import musicTheme from '../assets/TownTheme.mp3';
+import backDay from '../assets/background-day.png';
+import backNight from '../assets/background-night.png';
+import ground from '../assets/ground-sprite.png';
+import redBird from '../assets/bird-red-sprite.png';
+import blueBird from '../assets/bird-blue-sprite.png';
+import yelloBird from '../assets/bird-yellow-sprite.png';
+import redPipeBot from '../assets/pipe-red-bottom.png';
+import redPipeTop from '../assets/pipe-red-top.png';
+import greenPipeBot from '../assets/pipe-green-bottom.png';
+import greenPipeTop from '../assets/pipe-green-top.png';
+import coin from '../assets/coin_gold.png';
+import number0 from '../assets/ui/number0.png';
+import number1 from '../assets/ui/number1.png';
+import number2 from '../assets/ui/number2.png';
+import number3 from '../assets/ui/number3.png';
+import number4 from '../assets/ui/number4.png';
+import number5 from '../assets/ui/number5.png';
+import number6 from '../assets/ui/number6.png';
+import number7 from '../assets/ui/number7.png';
+import number8 from '../assets/ui/number8.png';
+import number9 from '../assets/ui/number9.png';
 
 export default class PreloaderScene extends Phaser.Scene {
   constructor() {
@@ -91,46 +124,45 @@ export default class PreloaderScene extends Phaser.Scene {
 
     // load assets needed in our game
     // ui
-    this.load.image('blueButton1', '/src/assets/ui/blue_button02.png');
-    this.load.image('blueButton2', '/src/assets/ui/blue_button03.png');
-    this.load.image('checkedBox', '/src/assets/ui/blue_boxCheckmark.png');
-    this.load.image('box', '/src/assets/ui/grey_box.png');
-    this.load.image('game-over', '/src/assets/gameover/textGameOver.png');
-    this.load.image('restart-button', '/src/assets/ui/restart-button.png');
-    this.load.image('home-button', '/src/assets/ui/home.png');
-    this.load.image('leaderboard', '/src/assets/ui/leaderboard.png');
-    this.load.image('leaderboard2', '/src/assets/ui/leaderboard2.png', {
+    this.load.image('blueButton1', bluebtn1);
+    this.load.image('blueButton2', bluebtn2);
+    this.load.image('checkedBox', boxChekMark);
+    this.load.image('box', boxEmpty);
+    this.load.image('game-over', gameOver);
+    this.load.image('restart-button', restartBtn);
+    this.load.image('home-button', homeBtn);
+    this.load.image('leaderboard', leaderboard);
+    this.load.image('leaderboard2', leaderbord2, {
       width: 100,
     });
-    this.load.image('logo', '/src/assets/dshagui-logo.png');
-    this.load.image('message-initial', '/src/assets/ui/message-initial.png');
-    this.load.image('logo', '/src/assets/dshagui-logo.png');
+    this.load.image('logo', logo);
+    this.load.image('message-initial', messageInitial);
 
     // backgrounḍ and ground
     this.load.image(
       'background-day',
-      '/src/assets/backgrounds/background-day.png',
+      backDay,
     );
     this.load.image(
       'background-night',
-      '/src/assets/backgrounds/background-night.png',
+      backNight,
     );
-    this.load.spritesheet('ground', '/src/assets/platforms/ground-sprite.png', {
+    this.load.spritesheet('ground', ground, {
       frameWidth: 800,
       frameHeight: 112,
     });
 
     // music & sounds
-    this.load.audio('bgMusic', ['/src/assets/TownTheme.mp3']);
+    this.load.audio('bgMusic', [musicTheme]);
 
     // bird
-    this.load.spritesheet('bird-red', '/src/assets/hero/bird-red-sprite.png', {
+    this.load.spritesheet('bird-red', redBird, {
       frameWidth: 34,
       frameHeight: 24,
     });
     this.load.spritesheet(
       'bird-yellow',
-      '/src/assets/hero/bird-yellow-sprite.png',
+      yelloBird,
       {
         frameWidth: 34,
         frameHeight: 24,
@@ -139,7 +171,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
     this.load.spritesheet(
       'bird-blue',
-      '/src/assets/hero/bird-blue-sprite.png',
+      blueBird,
       {
         frameWidth: 34,
         frameHeight: 24,
@@ -148,31 +180,31 @@ export default class PreloaderScene extends Phaser.Scene {
 
     // pipes and coins
     this.load.image('pipe-green-top',
-      '/src/assets/platforms/pipe-green-top.png');
+      greenPipeTop);
 
     this.load.image('pipe-green-bottom',
-      '/src/assets/platforms/pipe-green-bottom.png');
+      greenPipeBot);
 
-    this.load.image('pipe-red-top', '/src/assets/platforms/pipe-red-top.png');
+    this.load.image('pipe-red-top', redPipeTop);
     this.load.image('pipe-red-bottom',
-      '/src/assets/platforms/pipe-red-bottom.png');
+      redPipeBot);
 
-    this.load.spritesheet('coin', '/src/assets/coins/coin_gold.png', {
+    this.load.spritesheet('coin', coin, {
       frameWidth: 20,
       frameHeight: 20,
     });
 
     // numbers
-    this.load.image('number0', '/src/assets/ui/number0.png');
-    this.load.image('number1', '/src/assets/ui/number1.png');
-    this.load.image('number2', '/src/assets/ui/number2.png');
-    this.load.image('number3', '/src/assets/ui/number3.png');
-    this.load.image('number4', '/src/assets/ui/number4.png');
-    this.load.image('number5', '/src/assets/ui/number5.png');
-    this.load.image('number6', '/src/assets/ui/number6.png');
-    this.load.image('number7', '/src/assets/ui/number7.png');
-    this.load.image('number8', '/src/assets/ui/number8.png');
-    this.load.image('number9', '/src/assets/ui/number9.png');
+    this.load.image('number0', number0);
+    this.load.image('number1', number1);
+    this.load.image('number2', number2);
+    this.load.image('number3', number3);
+    this.load.image('number4', number4);
+    this.load.image('number5', number5);
+    this.load.image('number6', number6);
+    this.load.image('number7', number7);
+    this.load.image('number8', number8);
+    this.load.image('number9', number9);
   }
 
   init() {

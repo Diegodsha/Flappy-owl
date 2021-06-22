@@ -9,6 +9,7 @@ import OptionsScene from './Scenes/OptionsScene';
 import CreditsScene from './Scenes/CreditsScene';
 import ScoreScene from './Scenes/ScoreBoard';
 import WelcomeScene from './Scenes/WelcomeScene';
+import './assets/style.css';
 
 const resize = () => {
   const canvas = document.querySelector('canvas');

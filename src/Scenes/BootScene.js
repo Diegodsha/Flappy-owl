@@ -1,4 +1,7 @@
 import Phaser from 'phaser';
+import bird from '../assets/ui/favicon.png';
+import logo from '../assets/dshagui-logo.png';
+import back from '../assets/background-day.png';
 
 export default class BootScene extends Phaser.Scene {
   constructor() {
@@ -6,9 +9,9 @@ export default class BootScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('bird', '/src/assets/ui/favicon.png');
-    this.load.image('logo', '/src/assets/dshagui-logo.png');
-    this.load.image('background', '/src/assets/backgrounds/background-day.png');
+    this.load.image('bird', bird);
+    this.load.image('logo', logo);
+    this.load.image('background', back);
   }
 
   create() {

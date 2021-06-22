@@ -10,6 +10,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
+        include: path.resolve(__dirname, 'src/'),
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -20,8 +21,12 @@ module.exports = {
         use: 'raw-loader',
       },
       {
-        test: /\.(gif|png|jpe?g|svg|xml)$/i,
+        test: /\.(gif|png|mp3|jpe?g|svg|xml)$/i,
         use: 'file-loader',
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
