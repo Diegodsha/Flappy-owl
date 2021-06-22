@@ -61,8 +61,8 @@ export default class PreloaderScene extends Phaser.Scene {
     progressBox.fillStyle(0x222222, 0.8);
     progressBox.fillRect(230, 270, 320, 50);
 
-    const { width } = this.cameras.main.width;
-    const { height } = this.cameras.main.height;
+    const width = 800;
+    const height = 600;
     const loadingText = this.make.text({
       x: width / 2,
       y: height / 2 - 50,
