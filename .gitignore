@@ -8,7 +8,7 @@ Thumbs.db
 
 # Vendors
 node_modules/
+package.lock.json
 
 # Build
-dist/
 /npm-debug.log

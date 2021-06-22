@@ -1,0 +1,25 @@
+body {
+  background-color: rgb(21, 136, 136);
+}
+
+canvas {
+  border-radius: 1rem;
+}
+
+#playerName {
+  border: none;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+#playerName:focus-visible {
+  border: none;
+}
+
+#submit {
+  margin-left: 10px;
+  border: none;
+  border-radius: 1rem;
+  padding: 0.5rem;
+}

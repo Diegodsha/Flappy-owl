@@ -1,49 +1,159 @@
-# Phaser 3 Webpack Project Template
+# Flappy owl Game
 
-A Phaser 3 project template with ES6 support via [Babel 7](https://babeljs.io/) and [Webpack 4](https://webpack.js.org/) that includes hot-reloading for development and production-ready builds.
+A Phaser 3 Game 
 
-This has been updated for Phaser 3.50.0 version and above.
+<p align="center">
+  <a href="https://github.com/Diegodsha/Flappy-owl/issues">
+  <img src="https://img.shields.io/github/issues-raw/Diegodsha/Flappy-owl?style=for-the-badge"
+       alt="Issues"></a>
+   <a href="https://github.com/Diegodsha/Flappy-owl/pulls">
+  <img src="https://img.shields.io/github/issues-pr/Diegodsha/Flappy-owl?style=for-the-badge"
+       alt="Pull Requests"></a>
+   <a href="https://github.com/Diegodsha/Flappy-owl/blob/main/LICENSE">
+  <img src="https://img.shields.io/github/license/Diegodsha/Flappy-owl?style=for-the-badge"
+       alt="License"></a>
+</p>
 
-Loading images via JavaScript module `import` is also supported, although not recommended.
+## Preview
 
-## Requirements
+![playOwl](https://user-images.githubusercontent.com/70416006/122822202-615e3c00-d2a3-11eb-9e53-15cf693b75ac.png)
 
-[Node.js](https://nodejs.org) is required to install dependencies and run scripts via `npm`.
+## Built With
 
-## Available Commands
+- HTML5
+- CSS
+- Phaser 3
+- Javascript (ES6)
+- Webpack 5
+- Microverse game API
 
-| Command | Description |
-|---------|-------------|
-| `npm install` | Install project dependencies |
-| `npm start` | Build project and open web server running project |
-| `npm run build` | Builds code bundle with production settings (minification, uglification, etc..) |
+### Description
 
-## Writing Code
+    Game inspired by the fun and famous mobile game Flappy bird.
 
-After cloning the repo, run `npm install` from your project directory. Then, you can start the local development server by running `npm start`.
+## Live Demo
 
-After starting the development server with `npm start`, you can edit any files in the `src` folder and webpack will automatically recompile and reload your server (available at `http://localhost:8080` by default).
+[![Netlify Status](https://api.netlify.com/api/v1/badges/08942cd1-5255-4122-a2c1-32302e7ef22f/deploy-status)](https://app.netlify.com/sites/flappy-owl/deploys)
 
-## Customizing the Template
+Visit [Flappy-owl](https://flappy-owl.netlify.app/)
 
-### Babel
+## Prerequisites
+  - Internet Connection
+  - Web Browser
+  - Screen size medium to large (Tablet on landscape, or PC)
+  - Code Editor 
+  - Node Package Manager (NPM)
 
-You can write modern ES6+ JavaScript and Babel will transpile it to a version of JavaScript that you want your project to support. The targeted browsers are set in the `.babelrc` file and the default currently targets all browsers with total usage over "0.25%" but excludes IE11 and Opera Mini.
 
- ```
-"browsers": [
-  ">0.25%",
-  "not ie 11",
-  "not op_mini all"
-]
- ```
+## Getting Started
 
-### Webpack
+- Open your terminal - Windows: `Win + R`, then type `cmd` | Mac: `Command + space`, then type `Terminal`| Linux: `Ctrl + Alt + t`
+- Navigate to a directory of your choosing using the `cd` command (e.g: cd my-directory/)
+- Run this command in your OS terminal: `git clone https://github.com/Diegodsha/Flappy-owl` to get a copy of the project.
+- Navigate to the project's directory using the `cd` command
 
-If you want to customize your build, such as adding a new webpack loader or plugin (i.e. for loading CSS or fonts), you can modify the `webpack/base.js` file for cross-project changes, or you can modify and/or create new configuration files and target them in specific npm tasks inside of `package.json'.
+## Usage
 
-## Deploying Code
+From within the project directory run `npm i` then `npm build` open the `index.html` file within dist folder on your web browser
+or after running `npm i` to install all dependencies run `npm start` to start a local server.
 
-After you run the `npm run build` command, your code will be built into a single bundle located at `dist/bundle.min.js` along with any other assets you project depended. 
 
-If you put the contents of the `dist` folder in a publicly-accessible location (say something like `http://mycoolserver.com`), you should be able to open `http://mycoolserver.com/index.html` and play your game.
+## Testing (JEST)
+
+A script for testing was added, so the user can simply run `npm test` from within the project's folder to execute all the tests.
+
+## Game Design
+
+    You're an owl and your main goal is to collect as many coins as possible while you try to avoid a collision with any object
+    to be part of the top ten best coin collectors, the coins appear between a gap that exists every time a top and bottom pipes appears,
+    every time you collide with an object or fall down the game will finish and your score will be submitted against the other players
+    try to beat the rank #1 owl and invite your friends to play.
+
+    Every time you restart the game your owls color will change, there are 3 options (red, blue, yellow)
+
+
+### Main Characters
+![bird-blue-sprite](https://user-images.githubusercontent.com/70416006/122995502-51ac2980-d36f-11eb-8432-e1279e88e4e3.png)
+![bird-red-sprite](https://user-images.githubusercontent.com/70416006/122995506-5244c000-d36f-11eb-839a-50a77947368a.png)
+![bird-yellow-sprite](https://user-images.githubusercontent.com/70416006/122995507-5244c000-d36f-11eb-8f1a-555880012379.png)
+
+### Obstacles and collision objects
+![ground-sprite](https://user-images.githubusercontent.com/70416006/122995599-6ab4da80-d36f-11eb-8da6-bc8ffa76b987.png)
+![pipe-green-bottom](https://user-images.githubusercontent.com/70416006/122995601-6b4d7100-d36f-11eb-885c-c1f692b7cd98.png)
+![pipe-green-top](https://user-images.githubusercontent.com/70416006/122995602-6b4d7100-d36f-11eb-8f6c-36f29bcb52d3.png)
+![pipe-red-bottom](https://user-images.githubusercontent.com/70416006/122995606-6be60780-d36f-11eb-806a-49e66dced95a.png)
+![pipe-red-top](https://user-images.githubusercontent.com/70416006/122995608-6be60780-d36f-11eb-9fc3-a1b1e7bf45f4.png)
+
+### Collectables
+![coin_gold](https://user-images.githubusercontent.com/70416006/122995673-83bd8b80-d36f-11eb-8338-74de1ecbc01f.png)
+
+### Loading Scene
+
+![loadingOwl](https://user-images.githubusercontent.com/70416006/122822200-60c5a580-d2a3-11eb-937d-bbe23ce7ec9f.png)
+
+### Title Scene
+
+![titleOwl](https://user-images.githubusercontent.com/70416006/122821934-0f1d1b00-d2a3-11eb-8352-8dead4136ac9.png)
+
+### Game navigation options
+### Play
+
+![startOwl](https://user-images.githubusercontent.com/70416006/122821915-09bfd080-d2a3-11eb-8a6d-e547f55bdb05.png)
+
+- Starts the game scene
+
+#### Movement
+
+![playOwl](https://user-images.githubusercontent.com/70416006/122822202-615e3c00-d2a3-11eb-9e53-15cf693b75ac.png)
+
+- Press click or SPACEBAR and the owl will fly
+- Try to collect as many coins as possible without falling or hiting any object
+- Owl will start to fall down after every click or key press
+
+#### Game over scene
+
+![gameOverOwl](https://user-images.githubusercontent.com/70416006/122821910-088ea380-d2a3-11eb-92da-45b850049024.png)
+
+- When the owl hits ceiling, floor, or any pipe the game will be over and you could choose between 3 options to navigate
+
+
+### Options
+
+![optionsOwl](https://user-images.githubusercontent.com/70416006/122830171-953e5f00-d2ad-11eb-8391-630ed2d62d47.png)
+
+- Redirects to the options menu to enable disable the music
+
+### Leaderboard
+
+![scoreOwl](https://user-images.githubusercontent.com/70416006/122830169-953e5f00-d2ad-11eb-92b9-4b97a566ced8.png)
+
+- Displays top ten best scores
+### Credits
+
+![creditsOwl](https://user-images.githubusercontent.com/70416006/122822201-615e3c00-d2a3-11eb-8921-603878542ba4.png)
+
+- Show the creator credits
+
+
+
+## Author
+<div align="center">
+<img src="https://user-images.githubusercontent.com/70416006/121233844-aff9e800-c858-11eb-99e4-d36b833d3fa9.png">
+</div>
+<div align="center">
+<img src="https://user-images.githubusercontent.com/70416006/121235243-42e75200-c85a-11eb-967d-ea05dd5efe1f.png">
+</div>
+
+👤 &nbsp; **Diego Hernández**
+- Portfolio: [Portfolio](https://dshagui.com/)
+- LinkedIn: [diegoshdezaguilar](https://www.linkedin.com/in/diegoshdezaguilar/)
+- GitHub: [@Diegodsha](https://github.com/Diegodsha)
+- Twitter: [@diegohdezchimo](https://twitter.com/diegohdezchimo)
+
+## Show your support
+
+Give a ⭐️ if you like this project!
+
+## Acknowledgments
+
+Microverse
