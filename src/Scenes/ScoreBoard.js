@@ -1,6 +1,7 @@
-import 'phaser';
+import Phaser from 'phaser';
 import Button from '../Objects/Button';
 import { getGameData } from '../API/fetch';
+import config from '../Config/config';
 
 export default class ScoreScene extends Phaser.Scene {
   constructor() {
@@ -8,11 +9,11 @@ export default class ScoreScene extends Phaser.Scene {
   }
 
   create() {
-    let bg = this.add.image(0, 0, 'background-night');
-    bg.displayHeight = game.config.height;
-    bg.displayWidth = game.config.width;
-    bg.y = game.config.height / 2;
-    bg.x = game.config.width / 2;
+    const bg = this.add.image(0, 0, 'background-night');
+    bg.displayHeight = config.height;
+    bg.displayWidth = config.width;
+    bg.y = config.height / 2;
+    bg.x = config.width / 2;
 
     this.scoreData = getGameData();
 
@@ -22,19 +23,16 @@ export default class ScoreScene extends Phaser.Scene {
       fontFamily: 'Sans-serif',
     });
 
-    this.menuButton = new Button(
-      this,
+    this.menuButton = new Button(this,
       400,
       550,
       'blueButton1',
       'blueButton2',
       'Menu',
-      'Title'
-    );
+      'Title');
 
     this.scoreData.then((data) => {
       const topTenOwls = data.slice(0, 11);
-      console.log(topTenOwls);
 
       const newCellObject = (scene, cell) => {
         const seed = { user: '- -', score: '- -' };
@@ -46,8 +44,8 @@ export default class ScoreScene extends Phaser.Scene {
           fontFamily: 'Sans-serif',
         };
 
-        const { user, score } =
-          topTenOwls[cell.index] !== undefined ? topTenOwls[cell.index] : seed;
+        const { user, score } = topTenOwls[cell.index] !== undefined
+          ? topTenOwls[cell.index] : seed;
 
         const rank = scene.add.text(10, 20, cell.index + 1, format);
         const name = scene.add.text(40, 20, user, format);

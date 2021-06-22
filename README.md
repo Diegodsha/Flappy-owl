@@ -16,12 +16,16 @@ A Phaser 3 Game
 
 ## Preview
 
+<<<<<<< HEAD
 ![loadingOwl](https://user-images.githubusercontent.com/70416006/122822200-60c5a580-d2a3-11eb-937d-bbe23ce7ec9f.png)
 ![titleOwl](https://user-images.githubusercontent.com/70416006/122821934-0f1d1b00-d2a3-11eb-8352-8dead4136ac9.png)
 ![startOwl](https://user-images.githubusercontent.com/70416006/122821915-09bfd080-d2a3-11eb-8a6d-e547f55bdb05.png)
 ![playOwl](https://user-images.githubusercontent.com/70416006/122822202-615e3c00-d2a3-11eb-9e53-15cf693b75ac.png)
 ![gameOverOwl](https://user-images.githubusercontent.com/70416006/122821910-088ea380-d2a3-11eb-92da-45b850049024.png)
 ![creditsOwl](https://user-images.githubusercontent.com/70416006/122822201-615e3c00-d2a3-11eb-8921-603878542ba4.png)
+=======
+![playOwl](https://user-images.githubusercontent.com/70416006/122822202-615e3c00-d2a3-11eb-9e53-15cf693b75ac.png)
+>>>>>>> feature/game-setup
 
 ## Built With
 
@@ -57,15 +61,76 @@ Visit [Flappy-owl](https://60d0fcd23b543e0008042694--thirsty-bhaskara-8563f9.net
 - Run this command in your OS terminal: `git clone https://github.com/Diegodsha/Flappy-owl` to get a copy of the project.
 - Navigate to the project's directory using the `cd` command
 
+<<<<<<< HEAD
 ### Usage
+=======
+## Usage
+>>>>>>> feature/game-setup
 
 From within the project directory open the `index.html` file within dist folder or after runing `npm i` to install all dependencies  run `npm start`
 
 
+<<<<<<< HEAD
 ### Testing (JEST)
 
 A script for testing was added, so user can simply run `npm test` from within the project's folder to execute all the tests.
 
+=======
+## Testing (JEST)
+
+A script for testing was added, so user can simply run `npm test` from within the project's folder to execute all the tests.
+
+## Game Design
+### Loading Scene
+
+![loadingOwl](https://user-images.githubusercontent.com/70416006/122822200-60c5a580-d2a3-11eb-937d-bbe23ce7ec9f.png)
+
+### Title Scene
+
+![titleOwl](https://user-images.githubusercontent.com/70416006/122821934-0f1d1b00-d2a3-11eb-8352-8dead4136ac9.png)
+
+### Game navigation options
+### Play
+
+![startOwl](https://user-images.githubusercontent.com/70416006/122821915-09bfd080-d2a3-11eb-8a6d-e547f55bdb05.png)
+
+- Starts the game scene
+
+#### Movement
+
+![playOwl](https://user-images.githubusercontent.com/70416006/122822202-615e3c00-d2a3-11eb-9e53-15cf693b75ac.png)
+
+- Press click or SPACEBAR and the owl will fly
+- try to collect as many coins possible without falling or hiting any object
+- Owl will start to fall down after every click or key press
+
+#### Game over scene
+
+![gameOverOwl](https://user-images.githubusercontent.com/70416006/122821910-088ea380-d2a3-11eb-92da-45b850049024.png)
+
+- When the owl hits seiling, floor or any pipe the game will be over and you could choose between 3 options to navigate
+
+
+### Options
+
+![optionsOwl](https://user-images.githubusercontent.com/70416006/122830171-953e5f00-d2ad-11eb-8391-630ed2d62d47.png)
+
+- Redirects to the options menu to enable disable the music
+
+### Leaderboard
+
+![scoreOwl](https://user-images.githubusercontent.com/70416006/122830169-953e5f00-d2ad-11eb-92b9-4b97a566ced8.png)
+
+- Displays top ten best scores
+### Credits
+
+![creditsOwl](https://user-images.githubusercontent.com/70416006/122822201-615e3c00-d2a3-11eb-8921-603878542ba4.png)
+
+- Show the creator credits
+
+
+
+>>>>>>> feature/game-setup
 ## Author
 <div align="center">
 <img src="https://user-images.githubusercontent.com/70416006/121233844-aff9e800-c858-11eb-99e4-d36b833d3fa9.png">

@@ -1,4 +1,5 @@
-import 'phaser';
+/* eslint-disable no-unused-expressions */
+import Phaser from 'phaser';
 import config from '../Config/config';
 
 export default class CreditsScene extends Phaser.Scene {
@@ -7,11 +8,11 @@ export default class CreditsScene extends Phaser.Scene {
   }
 
   create() {
-    let bg = this.add.image(0, 0, 'background-night');
-    bg.displayHeight = game.config.height;
-    bg.displayWidth = game.config.width;
-    bg.y = game.config.height / 2;
-    bg.x = game.config.width / 2;
+    const bg = this.add.image(0, 0, 'background-night');
+    bg.displayHeight = config.height;
+    bg.displayWidth = config.width;
+    bg.y = config.height / 2;
+    bg.x = config.width / 2;
 
     this.creditsText = this.add.text(0, 0, 'Credits', {
       fontSize: '32px',
@@ -22,14 +23,12 @@ export default class CreditsScene extends Phaser.Scene {
       fill: '#fff',
     });
     this.credtisLogo = this.add.image(0, 0, 'logo');
-    this.credtisLogo.displayWidth = game.config.width / 3;
-    this.credtisLogo.displayHeight = game.config.height / 6;
-    this.zone = this.add.zone(
-      config.width / 2,
+    this.credtisLogo.displayWidth = config.width / 3;
+    this.credtisLogo.displayHeight = config.height / 6;
+    this.zone = this.add.zone(config.width / 2,
       config.height / 2,
       config.width,
-      config.height
-    );
+      config.height);
 
     Phaser.Display.Align.In.Center(this.creditsText, this.zone);
 
@@ -45,8 +44,8 @@ export default class CreditsScene extends Phaser.Scene {
       ease: 'Power1',
       duration: 3000,
       delay: 1000,
-      onComplete: function () {
-        this.destroy;
+      onComplete: () => {
+        this.creditsTween.destroy;
       },
     });
 
@@ -56,9 +55,9 @@ export default class CreditsScene extends Phaser.Scene {
       ease: 'Power2',
       duration: 4000,
       delay: 1000,
-      onComplete: function () {
+      onComplete: () => {
         this.madeByTween.destroy;
-      }.bind(this),
+      },
     });
 
     this.madeByLogo = this.tweens.add({
@@ -67,10 +66,10 @@ export default class CreditsScene extends Phaser.Scene {
       ease: 'Power2',
       duration: 4000,
       delay: 1000,
-      onComplete: function () {
+      onComplete: () => {
         this.madeByLogo.destroy;
         this.scene.start('Title');
-      }.bind(this),
+      },
     });
   }
 }

@@ -1,17 +1,18 @@
-import 'phaser';
+import Phaser from 'phaser';
 import Button from '../Objects/Button';
 import config from '../Config/config';
+
 export default class OptionsScene extends Phaser.Scene {
   constructor() {
     super('Options');
   }
 
   create() {
-    let bg = this.add.image(0, 0, 'background-night');
-    bg.displayHeight = game.config.height;
-    bg.displayWidth = game.config.width;
-    bg.y = game.config.height / 2;
-    bg.x = game.config.width / 2;
+    const bg = this.add.image(0, 0, 'background-night');
+    bg.displayHeight = config.height;
+    bg.displayWidth = config.width;
+    bg.y = config.height / 2;
+    bg.x = config.width / 2;
 
     this.model = this.sys.game.globals.model;
 
@@ -23,23 +24,19 @@ export default class OptionsScene extends Phaser.Scene {
 
     this.musicButton.setInteractive();
 
-    this.musicButton.on(
-      'pointerdown',
-      function () {
+    this.musicButton.on('pointerdown',
+      () => {
         this.model.musicOn = !this.model.musicOn;
         this.updateAudio();
-      }.bind(this)
-    );
+      });
 
-    this.menuButton = new Button(
-      this,
+    this.menuButton = new Button(this,
       400,
       500,
       'blueButton1',
       'blueButton2',
       'Menu',
-      'Title'
-    );
+      'Title');
     this.centerContent(this.menuButton, -1);
 
     this.updateAudio();
@@ -60,14 +57,10 @@ export default class OptionsScene extends Phaser.Scene {
   }
 
   centerContent(gameObject, offset = 0) {
-    Phaser.Display.Align.In.Center(
-      gameObject,
-      this.add.zone(
-        config.width / 2,
+    Phaser.Display.Align.In.Center(gameObject,
+      this.add.zone(config.width / 2,
         config.height / 2 - offset * 100,
         config.width,
-        config.height
-      )
-    );
+        config.height));
   }
 }

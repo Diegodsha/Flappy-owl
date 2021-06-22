@@ -1,4 +1,4 @@
-import 'phaser';
+import Phaser from 'phaser';
 import Model from './Model';
 import config from './Config/config';
 import GameScene from './Scenes/GameScene';

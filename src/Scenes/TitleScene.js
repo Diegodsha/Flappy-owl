@@ -1,4 +1,4 @@
-import 'phaser';
+import Phaser from 'phaser';
 import config from '../Config/config';
 import Button from '../Objects/Button';
 
@@ -8,57 +8,49 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   create() {
-    let bg = this.add.image(0, 0, 'background-day');
-    bg.displayHeight = game.config.height;
-    bg.displayWidth = game.config.width;
-    bg.y = game.config.height / 2;
-    bg.x = game.config.width / 2;
+    const bg = this.add.image(0, 0, 'background-day');
+    bg.displayHeight = config.height;
+    bg.displayWidth = config.width;
+    bg.y = config.height / 2;
+    bg.x = config.width / 2;
     // Game
 
-    this.gameButton = new Button(
-      this,
+    this.gameButton = new Button(this,
       config.width / 2,
       config.height / 2 - 100,
       'blueButton1',
       'blueButton2',
       'Play',
-      'Game'
-    );
+      'Game');
 
-    //Scoreboard
-    this.scoreButton = new Button(
-      this,
+    // Scoreboard
+    this.scoreButton = new Button(this,
       700,
       500,
       'leaderboard',
       'leaderboard',
       '',
-      'Scoreboard'
-    );
+      'Scoreboard');
 
     // Options
 
-    this.optionsButton = new Button(
-      this,
+    this.optionsButton = new Button(this,
       config.width / 2,
       config.height / 2,
       'blueButton1',
       'blueButton2',
       'Options',
-      'Options'
-    );
+      'Options');
 
     // Credits
 
-    this.creditsButton = new Button(
-      this,
+    this.creditsButton = new Button(this,
       config.width / 2,
       config.height / 2 + 100,
       'blueButton1',
       'blueButton2',
       'Credits',
-      'Credits'
-    );
+      'Credits');
 
     this.model = this.sys.game.globals.model;
     if (this.model.musicOn === true && this.model.bgMusicPlaying === false) {
