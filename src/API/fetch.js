@@ -22,22 +22,26 @@ const createGame = async () => {
 };
 
 const uploadGameData = async (owlName, owlScore) => {
-  const data = {
-    user: owlName,
-    score: owlScore,
-  };
+  try {
+    const data = {
+      user: owlName,
+      score: `${owlScore}`,
+    };
 
-  const url = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${gameID}/scores/`;
-  const response = await fetch(url, {
-    mode: 'cors',
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
-  const responseObj = response.json();
-  return responseObj;
+    const url = `https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${gameID}/scores/`;
+    const response = await fetch(url, {
+      mode: 'cors',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    const responseObj = await response.json();
+    return responseObj;
+  } catch {
+    throw Error('Using Incorrect Data');
+  }
 };
 
 const getGameData = async () => {
