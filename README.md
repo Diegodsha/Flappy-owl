@@ -35,7 +35,7 @@ A Phaser 3 Game
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/08942cd1-5255-4122-a2c1-32302e7ef22f/deploy-status)](https://app.netlify.com/sites/thirsty-bhaskara-8563f9/deploys)
 
-Visit [Flappy-owl](https://60d0fcd23b543e0008042694--thirsty-bhaskara-8563f9.netlify.app/)
+Visit [Flappy-owl](https://flappy-owl.netlify.app/)
 
 ## Prerequisites
   - Internet Connection
