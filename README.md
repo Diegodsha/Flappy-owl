@@ -33,7 +33,7 @@ A Phaser 3 Game
 
 ## Live Demo
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/08942cd1-5255-4122-a2c1-32302e7ef22f/deploy-status)](https://app.netlify.com/sites/thirsty-bhaskara-8563f9/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/08942cd1-5255-4122-a2c1-32302e7ef22f/deploy-status)](https://app.netlify.com/sites/flappy-owl/deploys)
 
 Visit [Flappy-owl](https://flappy-owl.netlify.app/)
 
@@ -47,21 +47,46 @@ Visit [Flappy-owl](https://flappy-owl.netlify.app/)
 
 ## Getting Started
 
-- Open your terminal - Windows: `Win + R`, then type `cmd` | Mac: `Command + space`, then type `Terminal`| Linux: `Ctrl + Alt`
+- Open your terminal - Windows: `Win + R`, then type `cmd` | Mac: `Command + space`, then type `Terminal`| Linux: `Ctrl + Alt + t`
 - Navigate to a directory of your choosing using the `cd` command (e.g: cd my-directory/)
 - Run this command in your OS terminal: `git clone https://github.com/Diegodsha/Flappy-owl` to get a copy of the project.
 - Navigate to the project's directory using the `cd` command
 
 ## Usage
 
-From within the project directory open the `index.html` file within dist folder or after runing `npm i` to install all dependencies  run `npm start`
+From within the project directory run `npm i` then `npm build` open the `index.html` file within dist folder on your web browser
+or after running `npm i` to install all dependencies run `npm start` to start a local server.
 
 
 ## Testing (JEST)
 
-A script for testing was added, so user can simply run `npm test` from within the project's folder to execute all the tests.
+A script for testing was added, so the user can simply run `npm test` from within the project's folder to execute all the tests.
 
 ## Game Design
+
+    You're an owl and your main goal is to collect as many coins as possible while you try to avoid a collision with any object
+    to be part of the top ten best coin collectors, the coins appear between a gap that exists every time a top and bottom pipes appears,
+    every time you collide with an object or fall down the game will finish and your score will be submitted against the other players
+    try to beat the rank #1 owl and invite your friends to play.
+
+    Every time you restart the game your owls color will change, there are 3 options (red, blue, yellow)
+
+
+### Main Characters
+![bird-blue-sprite](https://user-images.githubusercontent.com/70416006/122995502-51ac2980-d36f-11eb-8432-e1279e88e4e3.png)
+![bird-red-sprite](https://user-images.githubusercontent.com/70416006/122995506-5244c000-d36f-11eb-839a-50a77947368a.png)
+![bird-yellow-sprite](https://user-images.githubusercontent.com/70416006/122995507-5244c000-d36f-11eb-8f1a-555880012379.png)
+
+### Obstacles and collision objects
+![ground-sprite](https://user-images.githubusercontent.com/70416006/122995599-6ab4da80-d36f-11eb-8da6-bc8ffa76b987.png)
+![pipe-green-bottom](https://user-images.githubusercontent.com/70416006/122995601-6b4d7100-d36f-11eb-885c-c1f692b7cd98.png)
+![pipe-green-top](https://user-images.githubusercontent.com/70416006/122995602-6b4d7100-d36f-11eb-8f6c-36f29bcb52d3.png)
+![pipe-red-bottom](https://user-images.githubusercontent.com/70416006/122995606-6be60780-d36f-11eb-806a-49e66dced95a.png)
+![pipe-red-top](https://user-images.githubusercontent.com/70416006/122995608-6be60780-d36f-11eb-9fc3-a1b1e7bf45f4.png)
+
+### Collectables
+![coin_gold](https://user-images.githubusercontent.com/70416006/122995673-83bd8b80-d36f-11eb-8338-74de1ecbc01f.png)
+
 ### Loading Scene
 
 ![loadingOwl](https://user-images.githubusercontent.com/70416006/122822200-60c5a580-d2a3-11eb-937d-bbe23ce7ec9f.png)
@@ -82,14 +107,14 @@ A script for testing was added, so user can simply run `npm test` from within th
 ![playOwl](https://user-images.githubusercontent.com/70416006/122822202-615e3c00-d2a3-11eb-9e53-15cf693b75ac.png)
 
 - Press click or SPACEBAR and the owl will fly
-- try to collect as many coins possible without falling or hiting any object
+- Try to collect as many coins as possible without falling or hiting any object
 - Owl will start to fall down after every click or key press
 
 #### Game over scene
 
 ![gameOverOwl](https://user-images.githubusercontent.com/70416006/122821910-088ea380-d2a3-11eb-92da-45b850049024.png)
 
-- When the owl hits seiling, floor or any pipe the game will be over and you could choose between 3 options to navigate
+- When the owl hits ceiling, floor, or any pipe the game will be over and you could choose between 3 options to navigate
 
 
 ### Options
