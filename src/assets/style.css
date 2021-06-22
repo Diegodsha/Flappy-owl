@@ -5,6 +5,7 @@ body {
 
 canvas {
   border-radius: 1rem;
+  box-shadow: 0px 2px 8px 3px black;
 }
 
 #playerName {
