@@ -333,7 +333,12 @@ export default class GameScene extends Phaser.Scene {
     this.menuButton.visible = true;
     this.scoreButton.visible = true;
     const playerName = localStorage.getItem('playerName');
-    this.data = uploadGameData(playerName, this.score);
+    this.data = uploadGameData(playerName, this.score = 1);
+    // .then(data => {if (data.message) {
+    //   console.log(data);
+    //   this.score = 0
+    // }})
+    // .catch((err) => console.log(err, 'kkkk'));
   }
 
   goHome() {

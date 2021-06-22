@@ -36,7 +36,7 @@ const uploadGameData = async (owlName, owlScore) => {
     },
     body: JSON.stringify(data),
   });
-  const responseObj = response.json();
+  const responseObj = await response.json();
   return responseObj;
 };
 
