@@ -76,17 +76,6 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
-    // this.framesMoveUp;
-    // this.gameOver;
-    // this.gameStarted;
-    // this.score;
-    // this.currentPipe;
-    // this.nextPipes;
-    // this.gapGroup;
-    // this.birdName;
-    // this.bird;
-    // this.pipesGroup;
-
     // add background
     this.bgDay = this.add
       .image(0, 0, assets.scene.background.day)
